@@ -1,14 +1,16 @@
+
 import pygame
-import Botonera
-from Controlador.InputArduino import InputArduino
+
+from botonera import Botonera
+from Arduino import InputArduino
+
 
 
 pygame.init()
-port='/dev/cu.usbmodem142301'
+direccion='/dev/cu.usbmodem142101'
 pantalla = pygame.display.set_mode((500,100))
 backGround = [0, 0, 0]
 pantalla.fill(backGround)
-input = inputArduino
 listaInteprete = [0,0,0,0,0,0,0,0]
 
 
@@ -17,6 +19,6 @@ while True:
     for eventos in pygame.event.get():
             if eventos.type == pygame.QUIT:
                 exit()
-    listaInteprete = input.input(port)
-    bot = Botonera(pantalla,listaInteprete)
+    Botonera(InputArduino.Input())
+    Botonera.Gameplay(pantalla,listaInteprete)
     pygame.display.update()

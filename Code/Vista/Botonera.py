@@ -2,10 +2,11 @@ import pygame
 
 
 class Botonera:
-   
-    def __init__(self,pantalla,listaInterprete):
+
+    def __init__(self,listaInterprete):
         self.lista = listaInterprete
 
+    def Gameplay(self,pantalla,listaInterprete):
         for i in range(8):
             self.lista[i] =listaInterprete[i]
 
