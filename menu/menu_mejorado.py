@@ -129,7 +129,7 @@ if __name__ == '__main__':
         ]
     pygame.font.init()
     screen = pygame.display.set_mode((320, 240))
-    fondo = pygame.image.load("fondo.png").convert()
+    fondo = pygame.image.load("fondo2.jpg").convert()
     menu = Menu(opciones)
     while not salir:
         for e in pygame.event.get():
