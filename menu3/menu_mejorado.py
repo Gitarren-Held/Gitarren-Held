@@ -41,11 +41,11 @@ class Cursor:
     def imprimir(self, screen):
         screen.blit(self.image, self.rect)
 class Menu:
-    "Representa un menú con opciones para un juego"
+    #"Representa el menú, de guitar Hero"
     def __init__(self, opciones):
         self.opciones = []
         fuente = pygame.font.Font('dejavu.ttf', 20)
-        x = 260
+        x = 260 #posicion inicial del menú
         y = 260
         paridad = 1
         self.cursor = Cursor(x - 30, y, 30)
@@ -75,22 +75,15 @@ class Menu:
             self.seleccionado = 0
         elif self.seleccionado > self.total - 1:
             self.seleccionado = self.total - 1
-        
         self.cursor.seleccionar(self.seleccionado)
-
         # indica si el usuario mantiene pulsada alguna tecla.
         self.mantiene_pulsado = k[K_UP] or k[K_DOWN] or k[K_RETURN]
-
         self.cursor.actualizar()
-     
         for o in self.opciones:
             o.actualizar()
-
     def imprimir(self, screen):
         """Imprime sobre 'screen' el texto de cada opción del menú."""
-
         self.cursor.imprimir(screen)
-
         for opcion in self.opciones:
             opcion.imprimir(screen)
 def comenzar_nuevo_juego():
@@ -106,8 +99,8 @@ def salir_del_programa():
     import sys
     print (" Gracias por utilizar este programa.")
     sys.exit(0)
-if __name__ == '__main__':
-    
+#Iniciamos el Main!!
+if __name__ == '__main__':  
     salir = False
     opciones = [
         ("Solo", comenzar_nuevo_juego),
@@ -115,12 +108,12 @@ if __name__ == '__main__':
         ("Creditos", creditos),
         ("Salir", salir_del_programa)
         ]
-
     pygame.font.init()
     screen = pygame.display.set_mode((640, 480))
     fondo = pygame.image.load("fondo2.png").convert()  
     fondo = pygame.transform.scale(fondo,(640,480))#Escalamos la imagen en Pygame
     menu = Menu(opciones)
+    pygame.display.set_caption('Guitar Hero') 
     while not salir:
         for e in pygame.event.get():
             if e.type == QUIT:
@@ -130,4 +123,3 @@ if __name__ == '__main__':
         menu.imprimir(screen)
         pygame.display.flip()
         pygame.time.delay(0)
-      
