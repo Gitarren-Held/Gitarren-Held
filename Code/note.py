@@ -10,6 +10,7 @@ WIDTH = 640
 HEIGHT = 480
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 EASY = 0
 MEDIUM = 1
 HARD = 2
@@ -19,11 +20,16 @@ EXPERT =3
 =======
 =======
 >>>>>>> parent of 980ac3a... Dificultad y distintio ritmo en notas
+=======
+>>>>>>> parent of 980ac3a... Dificultad y distintio ritmo en notas
 EASY = 1
 MEDIUM = 2
 HARD = 3
 EXPERT =4
 <<<<<<< HEAD
+<<<<<<< HEAD
+>>>>>>> parent of 980ac3a... Dificultad y distintio ritmo en notas
+=======
 >>>>>>> parent of 980ac3a... Dificultad y distintio ritmo en notas
 =======
 >>>>>>> parent of 980ac3a... Dificultad y distintio ritmo en notas
@@ -97,6 +103,7 @@ def Linea(screen,notas,x,y):
         Orange = note(x+200,y+0,"Orange")
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     return Green,Red,Blue,Yellow,Orange
 
 def Down(Green,Red,Blue,Yellow,Orange,notas,screen):
@@ -129,6 +136,8 @@ def CreaNota(notas,screen):
     
 
 =======
+=======
+>>>>>>> parent of 980ac3a... Dificultad y distintio ritmo en notas
 =======
 >>>>>>> parent of 980ac3a... Dificultad y distintio ritmo en notas
     while(limite<HEIGHT-100):
@@ -173,12 +182,15 @@ def main():
         input = [random.randrange(2),random.randrange(2),random.randrange(2),random.randrange(2),random.randrange(2),0,0,0]
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
         CreaNota(input,screen)
         #crea la linea de notas
         #Linea(screen,input,0,0)
         #Linea(screen,input,Green,Red,Blue,Yellow,Orange,0,0)  
     return 0 
 =======
+=======
+>>>>>>> parent of 980ac3a... Dificultad y distintio ritmo en notas
 =======
 >>>>>>> parent of 980ac3a... Dificultad y distintio ritmo en notas
         Linea(screen,input,0,0)
