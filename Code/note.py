@@ -1,7 +1,9 @@
 import sys, pygame
 from pygame.locals import *
 from Api import *
+from NotasDown import *
 import random
+
 # Constantes
 # NO CONSIDERAR:usar velocidades para que tengan distinto ritmo falta agregar metodo para mover el arreglo (sigue usando el arreglo si sirve)
 WIDTH = 640
@@ -10,6 +12,7 @@ EASY = 0
 MEDIUM = 1
 HARD = 2
 EXPERT =3
+
 #Clase que almacena la "nota" en el constructor cuenta con un "x" e "y" que son la posicion donde partiran esta nota 
 class note(pygame.sprite.Sprite):
     def __init__(self,x,y,tipo):
@@ -71,7 +74,11 @@ def ArregloNote(notas):
 # notas = arreglo de notas ej[0,0,1,1,0,0,1]
 # x e y = posicion (creo que duplique esto )    
 def Linea(screen,notas,x,y):
-    limite = 0 
+    Green = note(x+0,y+0,"Green")
+    Blue = note(x+0,y+0,"Green")
+    Red = note(x+0,y+0,"Green")
+    Yellow = note(x+0,y+0,"Green")
+    Orange = note(x+0,y+0,"Green")
     if(notas[0]==1):
         Green = note(x+0,y+0,"Green")
     if(notas[1]==1):
@@ -82,26 +89,37 @@ def Linea(screen,notas,x,y):
         Yellow = note(x+150,y+0,"Yellow")
     if(notas[4]==1):
         Orange = note(x+200,y+0,"Orange")
-    while(limite<HEIGHT):
-        limite = limite+1
-        screen.fill([0,0,0])
-        if(notas[0]==1):
-            Green.Move(random.randrange(4))
-            Green.draw(screen)
-        if(notas[1]==1):
-            Red.Move(random.randrange(4))
-            Red.draw(screen)
-        if(notas[2]==1):
-            Blue.Move(random.randrange(4))
-            Blue.draw(screen)
-        if(notas[3]==1):
-            Yellow.Move(random.randrange(4))
-            Yellow.draw(screen)
-        if(notas[4]==1):
-            Orange.Move(random.randrange(4))
-            Orange.draw(screen)
-        pygame.display.flip()
-        pygame.display.update()
+    return Green,Red,Blue,Yellow,Orange
+
+def Down(Green,Red,Blue,Yellow,Orange,notas,screen):
+    if(notas[0]==1):
+        Green.Move(random.randrange(4))
+        Green.draw(screen)
+    if(notas[1]==1):
+        Red.Move(random.randrange(4))
+        Red.draw(screen)
+    if(notas[2]==1):
+        Blue.Move(random.randrange(4))
+        Blue.draw(screen)
+    if(notas[3]==1):
+        Yellow.Move(random.randrange(4))
+        Yellow.draw(screen)
+    if(notas[4]==1):
+        Orange.Move(random.randrange(4))
+        Orange.draw(screen)
+    #if((Green.y < HEIGHT)or (Red.y < HEIGHT)or(Blue.y < HEIGHT)or(Yellow.y < HEIGHT)or(Orange.y < HEIGHT)):
+        #Down(Green,Red,Blue,Yellow,Orange,notas,screen)
+
+    pygame.display.flip()
+    pygame.display.update()
+
+def CreaNota(notas,screen):
+    Green,Red,Blue,Yellow,Orange = Linea(screen,notas,0,0)
+    timer = Timer(Green,Red,Blue,Yellow,Orange,notas,screen)
+    timer.start() 
+    timer.stop()
+    
+
 
 
 
@@ -121,12 +139,11 @@ def main():
                 sys.exit(0)
         #simula un input (linea de arduino) con numeros random [0] o [1]
         input = [random.randrange(2),random.randrange(2),random.randrange(2),random.randrange(2),random.randrange(2),0,0,0]
+        CreaNota(input,screen)
         #crea la linea de notas
-        Linea(screen,input,0,0)
-        #Linea(screen,input,Green,Red,Blue,Yellow,Orange,0,0)
-        pygame.display.flip()
-        pygame.display.update()
-    return 0
+        #Linea(screen,input,0,0)
+        #Linea(screen,input,Green,Red,Blue,Yellow,Orange,0,0)  
+    return 0 
  
 if __name__ == '__main__':
     pygame.init()
