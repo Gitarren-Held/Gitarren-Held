@@ -5,15 +5,28 @@ from NotasDown import *
 import random
 
 # Constantes
-# NO CONSIDERAR:usar velocidades para que tengan distinto ritmo falta agregar metodo para mover el arreglo (sigue usando el arreglo si sirve)
+# usar velocidades para que tengan distinto ritmo falta agregar metodo para mover el arreglo (sigue usando el arreglo si sirve)
 WIDTH = 640
 HEIGHT = 480
+<<<<<<< HEAD
+<<<<<<< HEAD
 EASY = 0
 MEDIUM = 1
 HARD = 2
 EXPERT =3
 
 #Clase que almacena la "nota" en el constructor cuenta con un "x" e "y" que son la posicion donde partiran esta nota 
+=======
+=======
+>>>>>>> parent of 980ac3a... Dificultad y distintio ritmo en notas
+EASY = 1
+MEDIUM = 2
+HARD = 3
+EXPERT =4
+<<<<<<< HEAD
+>>>>>>> parent of 980ac3a... Dificultad y distintio ritmo en notas
+=======
+>>>>>>> parent of 980ac3a... Dificultad y distintio ritmo en notas
 class note(pygame.sprite.Sprite):
     def __init__(self,x,y,tipo):
         pygame.sprite.Sprite.__init__(self)
@@ -24,55 +37,48 @@ class note(pygame.sprite.Sprite):
         self.speed = [0.5, -0.5]
         self.x = x
         self.y = y
-        
-    #dibuja la nota en pantalla 
     def draw(self, surface):
         """ Draw on surface """
         # blit yourself at your current position
         surface.blit(self.image, (self.x, self.y))
-    #mueve la nota segun "dif"(dificultad), estas estan definidas como globales mas arriba,en el fondo setea el valor de movimiento segun la dificultad que uno le asigne
-    def Move(self,dif):
-        if(dif==0):
+    def Move(self,dificultad):
+        if(dificultad=="EASY"):
             dist = EASY
-        if(dif==1):
+        if(dificultad=="MEDIUM"):
             dist = MEDIUM
-        if(dif==2):
+        if(dificultad=="HARD"):
             dist = HARD
-        if(dif==3):
+        if(dificultad=="EXPERT"):
             dist = EXPERT
         if(self.y<HEIGHT):
             print(self.y)
             self.y +=dist
         else:
             self.kill()
-#crea arreglo de notas ( aun no lo uso )
+    
 def ArregloNote(notas):
-    list=[]
-    fin = False
-    while(fin!=True):
-        if(notas[0]==1):
-            Green = note(0,0,"Green")
-            list.append(Green)
-        if(notas[1]==1):
-            Red = note(50,0,"Red")
-            list.append(Red)
-        if(notas[2]==1):
-            Blue = note(100,0,"Blue")
-            list.append(Blue)
-        if(notas[3]==1):
-            Yellow = note(150,0,"Yellow")
-            list.append(Yellow)
-        if(notas[4]==1):
-            Orange = note(200,0,"Orange")
-            list.append(Orange)
-    return list
-
+        list=[]
+        fin = False
+        while(fin!=True):
+            if(notas[0]==1):
+                Green = note(0,0,"Green")
+                list.append(Green)
+            if(notas[1]==1):
+                Red = note(50,0,"Red")
+                list.append(Red)
+            if(notas[2]==1):
+                Blue = note(100,0,"Blue")
+                list.append(Blue)
+            if(notas[3]==1):
+                Yellow = note(150,0,"Yellow")
+                list.append(Yellow)
+            if(notas[4]==1):
+                Orange = note(200,0,"Orange")
+                list.append(Orange)
+        return list
        
 
-#crea una "linea" de notas con sus respectivas dificultades ( solo crea notas si estas estan en el arreglo )
-# screen = pantalla de pygame
-# notas = arreglo de notas ej[0,0,1,1,0,0,1]
-# x e y = posicion (creo que duplique esto )    
+        
 def Linea(screen,notas,x,y):
     Green = note(x+0,y+0,"Green")
     Blue = note(x+0,y+0,"Green")
@@ -89,6 +95,8 @@ def Linea(screen,notas,x,y):
         Yellow = note(x+150,y+0,"Yellow")
     if(notas[4]==1):
         Orange = note(x+200,y+0,"Orange")
+<<<<<<< HEAD
+<<<<<<< HEAD
     return Green,Red,Blue,Yellow,Orange
 
 def Down(Green,Red,Blue,Yellow,Orange,notas,screen):
@@ -120,6 +128,30 @@ def CreaNota(notas,screen):
     timer.stop()
     
 
+=======
+=======
+>>>>>>> parent of 980ac3a... Dificultad y distintio ritmo en notas
+    while(limite<HEIGHT-100):
+        limite = limite+1
+        screen.fill([0,0,0])
+        if(notas[0]==1):
+            Green.Move("EXPERT")
+            Green.draw(screen)
+        if(notas[1]==1):
+            Red.Move("EXPERT")
+            Red.draw(screen)
+        if(notas[2]==1):
+            Blue.Move("EXPERT")
+            Blue.draw(screen)
+        if(notas[3]==1):
+            Yellow.Move("EXPERT")
+            Yellow.draw(screen)
+        if(notas[4]==1):
+            Orange.Move("EXPERT")
+            Orange.draw(screen)
+        pygame.display.flip()
+        pygame.display.update()
+>>>>>>> parent of 980ac3a... Dificultad y distintio ritmo en notas
 
 
 
@@ -133,17 +165,28 @@ def main():
     #Blue=note
     #Orange=note
     pygame.display.set_caption("Pruebas Pygame")
+    #Background_image = load_image('images/fondo_pong.png')
     while True:
         for eventos in pygame.event.get():
             if eventos.type == QUIT:
                 sys.exit(0)
-        #simula un input (linea de arduino) con numeros random [0] o [1]
         input = [random.randrange(2),random.randrange(2),random.randrange(2),random.randrange(2),random.randrange(2),0,0,0]
+<<<<<<< HEAD
+<<<<<<< HEAD
         CreaNota(input,screen)
         #crea la linea de notas
         #Linea(screen,input,0,0)
         #Linea(screen,input,Green,Red,Blue,Yellow,Orange,0,0)  
     return 0 
+=======
+=======
+>>>>>>> parent of 980ac3a... Dificultad y distintio ritmo en notas
+        Linea(screen,input,0,0)
+        #Linea(screen,input,Green,Red,Blue,Yellow,Orange,0,0)
+        pygame.display.flip()
+        pygame.display.update()
+    return 0
+>>>>>>> parent of 980ac3a... Dificultad y distintio ritmo en notas
  
 if __name__ == '__main__':
     pygame.init()
