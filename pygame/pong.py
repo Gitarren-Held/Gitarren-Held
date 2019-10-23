@@ -28,14 +28,12 @@ class Bola (pygame.sprite.Sprite):#Creamos la bola, que hereda los métodos de l
         self.speed = [0.5, -0.5]
         """ self.speed : define la velocidad q queremos para la pelota, veloi¡cidad en eje X y en velocidad Y.
          """
-   
-    def actualizar(self, time):#el método actualizar, recibe el parámetro self y el tiempo transcurrido.
+    def actualizar(self, time,pala_jug):#el método actualizar, recibe el parámetro self y el tiempo transcurrido.
         self.rect.centerx += self.speed[0] * time #   OJO: self.rect.centerx: Centro de nuestro rectangulo en x es el valor que tenía 
         self.rect.centery += self.speed[1] * time # Energía = Velocidad (self.speed[0]) * tiempo (tiempo)
         """   Nota:
         - si la parte izquierda del rectángulo de la bola es <= 0 ó la parte derecha del rectángulo de la bola es >= Ancho pantalla.
         la velocidad en el eje X, cambia de signo , conseguimos que se vaya al otro lado.
-
          """
         if self.rect.left <= 0 or self.rect.right >=width:
             self.speed[0] = -self.speed[0]
@@ -44,6 +42,11 @@ class Bola (pygame.sprite.Sprite):#Creamos la bola, que hereda los métodos de l
         if self.rect.top <= 0 or self.rect.bottom >= height:
             self.speed[1] = -self.speed[1]
             self.rect.centery +=self.speed[1]*time   
+    #COLISIONEAS: Esto comprueba si el rectángulo del Sprite objeto1 está en contacto con el rectángulo de objeto2: 
+        if pygame.sprite.collide_rect(self, pala_jug):
+            self.speed[0] = -self.speed[0]
+            self.rect.centerx += self.speed[0] * time
+
 
 #Creamos la clase PALA, es muy parecido a la bola, solo q le pasamos el parámetro x, para usarlo como self.recr.centerx.
 #ya que necesitamos 2 palas, una en la IZQ  otra en la Right, 
@@ -95,6 +98,7 @@ def main():
     """
      #Creamos un reloj; sabemos cuanto tiempo a pasado desde la ultima actualización de la pelota y con ello poder situarla en el espacio.
     clock = pygame.time.Clock()
+    
     while True:
         #Ahora necesitamos saber cuanto tiempo pasa cada vez que se ejecuta una interección del bucle,
         # para ello dentro del bucle ponemos como primera línea:
@@ -107,7 +111,7 @@ def main():
             if events.type == QUIT:
                 sys.exit(0)
         #Por último debemos actualizar la posición de la bola antes de actualizarla en la ventana, es decir antes de los screen.blit.
-        bola.actualizar(time)
+        bola.actualizar(time,pala_jug)#Y con esto ya hemos logrado que nuestra bola detecte si ha chocado contra la pala del jugador en caso afirmativo “rebota”.
         #Por ultimo debemos llamar al método mover en el bucle justo después de actualizar la bola:
         pala_jug.mover(time,keys)
         screen.blit(background_image, (0,0))
