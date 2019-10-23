@@ -28,13 +28,19 @@ class Bola (pygame.sprite.Sprite):#Creamos la bola, que hereda los métodos de l
         self.speed = [0.5, -0.5]
         """ self.speed : define la velocidad q queremos para la pelota, veloi¡cidad en eje X y en velocidad Y.
          """
-    def actualizar(self, time,pala_jug,pala_cpu):#el método actualizar, recibe el parámetro self y el tiempo transcurrido.
+    def actualizar(self, time,pala_jug,pala_cpu,puntos):#el método actualizar, recibe el parámetro self y el tiempo transcurrido.
         self.rect.centerx += self.speed[0] * time #   OJO: self.rect.centerx: Centro de nuestro rectangulo en x es el valor que tenía 
         self.rect.centery += self.speed[1] * time # Energía = Velocidad (self.speed[0]) * tiempo (tiempo)
         """   Nota:
         - si la parte izquierda del rectángulo de la bola es <= 0 ó la parte derecha del rectángulo de la bola es >= Ancho pantalla.
         la velocidad en el eje X, cambia de signo , conseguimos que se vaya al otro lado.
          """
+    #Agregamos los correspondientes puntos por jugador o CPU:
+        if self.rect.left <=0:
+            puntos[1]+=1#Correspondiente  a puntos del CPU
+        if self.rect.right >= width:
+            puntos[0]+=1 #Correspondiente a los puntos del jugador. 
+
         if self.rect.left <= 0 or self.rect.right >=width:
             self.speed[0] = -self.speed[0]
             self.rect.centerx += self.speed[0]*time
@@ -49,7 +55,7 @@ class Bola (pygame.sprite.Sprite):#Creamos la bola, que hereda los métodos de l
         if pygame.sprite.collide_rect(self, pala_cpu):
             self.speed[0] = -self.speed[0]
             self.rect.centerx += self.speed[0] * time
-
+        return puntos
 
 #Creamos la clase PALA, es muy parecido a la bola, solo q le pasamos el parámetro x, para usarlo como self.recr.centerx.
 #ya que necesitamos 2 palas, una en la IZQ  otra en la Right, 
@@ -87,6 +93,14 @@ class Pala (pygame.sprite.Sprite):
 # ---------------------------------------------------------------------
  
 # Funciones
+#Pondremos la funcion que nos facilite el trabajo con textos y nos automatice el proceso, de esta forma, vamos a poner un fonts general para el juego.
+def texto(texto, posx, posy, color=(255, 255, 255)):
+    fuente = pygame.font.Font("images/DroidSans.ttf", 25)
+    salida = pygame.font.Font.render(fuente, texto, 1, color)
+    salida_rect = salida.get_rect()
+    salida_rect.centerx = posx
+    salida_rect.centery = posy
+    return salida, salida_rect
 # ---------------------------------------------------------------------
 def load_image(filename, transparent = False):
     try: image = pygame.image.load(filename)
@@ -116,6 +130,8 @@ def main():
     """
      #Creamos un reloj; sabemos cuanto tiempo a pasado desde la ultima actualización de la pelota y con ello poder situarla en el espacio.
     clock = pygame.time.Clock()
+    #Creamos la variable puntos, para almacenar:
+    puntos =[0,0] #0:JUGADOR 1:CPU
     
     while True:
         #Ahora necesitamos saber cuanto tiempo pasa cada vez que se ejecuta una interección del bucle,
@@ -129,18 +145,27 @@ def main():
             if events.type == QUIT:
                 sys.exit(0)
         #Por último debemos actualizar la posición de la bola antes de actualizarla en la ventana, es decir antes de los screen.blit.
-        bola.actualizar(time,pala_jug,pala_cpu)#Y con esto ya hemos logrado que nuestra bola detecte si ha chocado contra la pala del jugador en caso afirmativo “rebota”.
+        puntos = bola.actualizar(time,pala_jug,pala_cpu,puntos)#Y con esto ya hemos logrado que nuestra bola detecte si ha chocado contra la pala del jugador en caso afirmativo “rebota”.
         #Por ultimo debemos llamar al método mover en el bucle justo después de actualizar la bola:
         pala_jug.mover(time,keys)
         #llamamos a la IA junto con las llamadas actualziar de la bola y mover de la pala_cpu
         pala_cpu.ia(time, bola)
+
+        #Puntajes!!
+        p_jug, p_jug_rect = texto(str(puntos[0]),width/4,40 ) 
+        p_cpu,p_cpu_rect = texto(str(puntos[1]),width-width/4,40)
+
+
         screen.blit(background_image, (0,0))
         #ahora solo debemos poner en la ventana del juego:REVISAR OJO2
         screen.blit(bola.image, bola.rect)
         screen.blit(pala_jug.image,pala_jug.rect)
         screen.blit(pala_cpu.image, pala_cpu.rect)#Agrego la PALA CPU
+        #debemos actualizarlo en pantalla como hacemos siempre.
+        screen.blit(p_jug,p_jug_rect)
+        screen.blit(p_cpu,p_cpu_rect)
         pygame.display.flip()#Esto lo que hace es actualizar toda la ventana para que se muestren los cambios que han sucedido.
-       
+        #print(puntos) muestra por consola el puntaje.,
     return 0
 if __name__ == '__main__':
     pygame.init()
