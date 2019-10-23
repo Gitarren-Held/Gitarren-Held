@@ -28,7 +28,7 @@ class Bola (pygame.sprite.Sprite):#Creamos la bola, que hereda los métodos de l
         self.speed = [0.5, -0.5]
         """ self.speed : define la velocidad q queremos para la pelota, veloi¡cidad en eje X y en velocidad Y.
          """
-    def actualizar(self, time,pala_jug):#el método actualizar, recibe el parámetro self y el tiempo transcurrido.
+    def actualizar(self, time,pala_jug,pala_cpu):#el método actualizar, recibe el parámetro self y el tiempo transcurrido.
         self.rect.centerx += self.speed[0] * time #   OJO: self.rect.centerx: Centro de nuestro rectangulo en x es el valor que tenía 
         self.rect.centery += self.speed[1] * time # Energía = Velocidad (self.speed[0]) * tiempo (tiempo)
         """   Nota:
@@ -42,8 +42,11 @@ class Bola (pygame.sprite.Sprite):#Creamos la bola, que hereda los métodos de l
         if self.rect.top <= 0 or self.rect.bottom >= height:
             self.speed[1] = -self.speed[1]
             self.rect.centery +=self.speed[1]*time   
-    #COLISIONEAS: Esto comprueba si el rectángulo del Sprite objeto1 está en contacto con el rectángulo de objeto2: 
         if pygame.sprite.collide_rect(self, pala_jug):
+            self.speed[0] = -self.speed[0]
+            self.rect.centerx += self.speed[0] * time
+    #COLISIONEAS: Esto comprueba si el rectángulo del Sprite objeto1 está en contacto con el rectángulo de objeto2: 
+        if pygame.sprite.collide_rect(self, pala_cpu):
             self.speed[0] = -self.speed[0]
             self.rect.centerx += self.speed[0] * time
 
@@ -67,6 +70,20 @@ class Pala (pygame.sprite.Sprite):
         if self.rect.bottom<=height:#caso de tener la tecla presionada disminuye el valor de centery haciendo que la pala se mueva hacia arriba.
             if keys[K_DOWN]:# pero para abajo y aumentando el valor de centery.
                 self.rect.centery += self.speed * time 
+    #Método que mueve la pala - Comportamiento complejo ; IA            
+    def ia(self, time, ball):
+     #comprobamos que ball.speed[0] >= 0, es decir, que la velocidad en el eje x de la pelota sea positiva,
+     #  es decir, que la pelota se este moviendo hacia la derecha (hacia la pala de la cpu) y
+     #  tambien comprueba que ball.rect.centerx >= WIDTH/2 es decir
+     #  que el centro x de la pelota sea mayor o igual que el centro del tablero, es decir,
+     #  que la pelota este en el campo de la cpu.
+     #Es un condicional que comprueba que la pelota vaya hacia donde está la pala de la cpu y que este en su campo, sino, que no se mueva.
+        if ball.speed[0] >= 0 and ball.rect.centerx >= width/2:
+            if self.rect.centery < ball.rect.centery:#centery de la pala es menor que el centery de la bola, 
+                self.rect.centery += self.speed * time
+            if self.rect.centery > ball.rect.centery:#
+                self.rect.centery -= self.speed * time
+
 # ---------------------------------------------------------------------
  
 # Funciones
@@ -91,6 +108,7 @@ def main():
     bola = Bola()
      # crear un nuevo Sprite para las palas,
     pala_jug = Pala(30)#le pasamos 30 como valor X, centerx estará a 30px del borde derecho de la ventana.
+    pala_cpu = Pala(width - 30) # PALA CPU!!
     """ OJO;
     - ahora no le pasamos la imágen, en véz de unas coordenadas como en el fondo--> Le pasamos (0,0).... si le debemos pasar el rect de la bola.
     esto q significa? --> Al momento de mover el rect, moveremos la pelotda de sitio.
@@ -111,13 +129,16 @@ def main():
             if events.type == QUIT:
                 sys.exit(0)
         #Por último debemos actualizar la posición de la bola antes de actualizarla en la ventana, es decir antes de los screen.blit.
-        bola.actualizar(time,pala_jug)#Y con esto ya hemos logrado que nuestra bola detecte si ha chocado contra la pala del jugador en caso afirmativo “rebota”.
+        bola.actualizar(time,pala_jug,pala_cpu)#Y con esto ya hemos logrado que nuestra bola detecte si ha chocado contra la pala del jugador en caso afirmativo “rebota”.
         #Por ultimo debemos llamar al método mover en el bucle justo después de actualizar la bola:
         pala_jug.mover(time,keys)
+        #llamamos a la IA junto con las llamadas actualziar de la bola y mover de la pala_cpu
+        pala_cpu.ia(time, bola)
         screen.blit(background_image, (0,0))
         #ahora solo debemos poner en la ventana del juego:REVISAR OJO2
         screen.blit(bola.image, bola.rect)
         screen.blit(pala_jug.image,pala_jug.rect)
+        screen.blit(pala_cpu.image, pala_cpu.rect)#Agrego la PALA CPU
         pygame.display.flip()#Esto lo que hace es actualizar toda la ventana para que se muestren los cambios que han sucedido.
        
     return 0
