@@ -119,9 +119,12 @@ def solo():
     pygame.display.set_caption('Guitar Hero') 
     salir = False
     while not salir:
-        for events in pygame.event.get():
-            if events.type == QUIT:
+        for event in pygame.event.get():
+            if event.type == QUIT:
                 salir = True
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_q:
+                    salir = True
         screen.blit(fondo, (0, 0))
         menu.actualizar()
         menu.imprimir(screen)
