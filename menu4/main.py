@@ -5,7 +5,6 @@ from pygame.locals import *
 from classMenu import * #Importamos la claseMenu!
 import utils
 from utils import *
-
 # Funciones
 # Constantes
 # ---------------------------------------------------------------------
@@ -22,6 +21,7 @@ def main():
     menu.inicio1()
     menu.inicio2()
     menu.inicio3()
+    menu.inicio4()
     pygame.display.set_caption('Guitar Hero') 
     salir = False
     while not salir:

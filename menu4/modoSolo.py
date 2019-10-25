@@ -14,7 +14,7 @@ def cancion4():
 def cancion5():
     print ("Selecciono la cancion 5 ")
 #Constantes privadas:
-opciones = [("Cancion 1", cancion1),("Cancion 2", cancion2),("Cancion 3", cancion3),("Cancion 4", cancion4),("Cancion 5", cancion5)]
+opciones = [("Back in Black - AC/DC", cancion1),("Thunderstruck - AC/DC", cancion2),("De Musica Ligera - Soda Stereo", cancion3),("The Man Who Sold The World - Nirvana", cancion4),("Creep - Radiohead", cancion5)]
 width = 640
 height = 480
 black = (0, 0, 0)
@@ -27,7 +27,7 @@ yellow = (255, 255, 0)
 class setList:
     def __init__(self, fuente, titulo, x, y, paridad, funcion_asignada):
         self.imagen_normal = fuente.render(titulo, 1, (black))#acá cambiamos el color de letra normal
-        self.imagen_destacada = fuente.render(titulo, 1, (blue))
+        self.imagen_destacada = fuente.render(titulo, 2, (blue))
         self.image = self.imagen_normal
         self.rect = self.image.get_rect()
         self.rect.x = 500 * paridad
@@ -35,7 +35,7 @@ class setList:
         self.funcion_asignada = funcion_asignada
         self.x = float(self.rect.x)
     def actualizar(self):
-        destino_x = 260
+        destino_x = 90
         self.x += (destino_x - self.x) / 5.0
         self.rect.x = int(self.x)
     def imprimir(self, screen):
@@ -69,7 +69,7 @@ class MenuSetList:
     def __init__(self, opciones):
         self.opciones = []
         fuente = pygame.font.Font('images/white-space.ttf', 25)
-        x = 260 #posicion inicial del menú
+        x = 80 #posicion inicial del menú
         y = 260
         paridad = 1
         self.cursor = Cursor(x - 30, y, 30)
@@ -123,6 +123,7 @@ def solo():
             if event.type == QUIT:
                 salir = True
             if event.type == pygame.KEYDOWN:
+            #En el caso de que se apreta la letra q , se cierra la ventana.
                 if event.key == pygame.K_q:
                     salir = True
         screen.blit(fondo, (0, 0))

@@ -173,7 +173,25 @@ class Menu:
                 pygame.display.update()
                 self.clock.tick(30)#FPS = 30 
             cont+=1
-
+    def inicio4(self):
+        inicio = True
+        screen = pygame.display.set_mode( (width, height))
+        fondo = pygame.image.load('imagesInicio/4.png').convert() 
+        fondo = pygame.transform.scale(fondo,(width,height))
+        pygame.display.set_caption('Guitar Hero') 
+        self.clock = pygame.time.Clock()
+        cont =0
+        while inicio:
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    pygame.quit()
+                    quit()
+                if cont >=100:
+                    inicio = False
+                screen.blit(fondo, (0, 0))
+                pygame.display.update()
+                self.clock.tick(30)#FPS = 30 
+            cont+=1
 # ---------------------------------------------------------------------
 # Funciones
 # ---------------------------------------------------------------------
