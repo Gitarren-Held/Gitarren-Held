@@ -1,8 +1,6 @@
 import pygame,sys
 pygame.init()
 #ƒunciones:
-def getFont(name = "Courier New", size = 20, style = ''):
-    return pygame.font.SysFont(name, size, style)
 def iniciar_solo():
     print( " Inicia Modo Solo")
 def iniciar_carrera():
@@ -16,10 +14,11 @@ def salir_del_programa():
 width = 640
 height = 480
 opciones = [("Solo", iniciar_solo),("Carrera", iniciar_carrera),("Creditos", creditos),("Salir", salir_del_programa)]
-#Colores
+#Colores RGB
 black = (0, 0, 0)
 gray = (120, 120, 120)
 white = (255, 255, 255)
 red = (255, 0, 0)
 green = (0, 255, 0)
 blue = (0, 0, 255)
+yellow = (255, 255, 0)

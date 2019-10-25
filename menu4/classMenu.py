@@ -2,28 +2,16 @@
 import random
 import pygame,sys
 from pygame.locals import *
+import utils
+from utils import *
 # Constantes
-width = 640
-height = 480
-WHITE = (255,255,255)
-GREEN = (0,255,0)
-RED = (255,0,0)
-BLUE = (0,0,255)
-BLACK = (0,0,0)
-FUCHSIA = (255, 0, 255)
-GRAY = (128, 128, 128)
-LIME = (0, 128, 0)
-MAROON = (128, 0, 0)
-NAVYBLUE = (0, 0, 128)
-OLIVE = (128, 128, 0)
-PURPLE = (128, 0, 128)
-TEAL = (0,128,128)
+
 # ---------------------------------------------------------------------
 # Clases
 class Opcion:
     def __init__(self, fuente, titulo, x, y, paridad, funcion_asignada):
-        self.imagen_normal = fuente.render(titulo, 1, (0, 0, 0))
-        self.imagen_destacada = fuente.render(titulo, 1, (200, 0, 0))
+        self.imagen_normal = fuente.render(titulo, 1, (white))#acá cambiamos el color de letra normal
+        self.imagen_destacada = fuente.render(titulo, 1, (yellow))
         self.image = self.imagen_normal
         self.rect = self.image.get_rect()
         self.rect.x = 500 * paridad
@@ -64,9 +52,7 @@ class Menu:
     #"Representa el menú, de guitar Hero"
     def __init__(self, opciones):
         self.opciones = []
-    
-        fuente = pygame.font.Font('images/Old.ttf', 20)
-        self.color = Color('WHITE')
+        fuente = pygame.font.Font('images/Old.ttf', 25)
         x = 260 #posicion inicial del menú
         y = 260
         paridad = 1
@@ -142,7 +128,6 @@ class Menu:
                 if cont >=100:
                     inicio = False
                 screen.blit(fondo, (0, 0))
-                print ("Intro")
                 pygame.display.update()
                 self.clock.tick(30)#FPS = 30 
             cont+=1
@@ -162,7 +147,6 @@ class Menu:
                 if cont >=100:
                     inicio = False
                 screen.blit(fondo, (0, 0))
-                print ("Intro")
                 pygame.display.update()
                 self.clock.tick(30)#FPS = 30 
             cont+=1
@@ -182,7 +166,6 @@ class Menu:
                 if cont >=100:
                     inicio = False
                 screen.blit(fondo, (0, 0))
-                print ("Intro")
                 pygame.display.update()
                 self.clock.tick(30)#FPS = 30 
             cont+=1
