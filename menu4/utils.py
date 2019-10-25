@@ -1,8 +1,12 @@
 import pygame,sys
-pygame.init()
+import modoSolo
+from modoSolo import *
+from main import *
+from classMenu import *
 #ƒunciones:
-def iniciar_solo():
-    print( " Inicia Modo Solo")
+def iniciar_solo(): 
+    pygame.init()
+    solo()
 def iniciar_carrera():
     print (" Inicio Modo Carrera!")
 def creditos():

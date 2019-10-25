@@ -4,8 +4,8 @@ import pygame,sys
 from pygame.locals import *
 import utils
 from utils import *
-# Constantes
 
+# Constantes
 # ---------------------------------------------------------------------
 # Clases
 class Opcion:
@@ -78,6 +78,7 @@ class Menu:
             elif k[K_RETURN]:
                 # Invoca a la función asociada a la opción.
                 self.opciones[self.seleccionado].activar()
+
         # procura que el cursor esté entre las opciones permitidas
         if self.seleccionado < 0:
             self.seleccionado = 0
@@ -169,6 +170,26 @@ class Menu:
                 pygame.display.update()
                 self.clock.tick(30)#FPS = 30 
             cont+=1
+    def modeSole(self):
+        inicio = True
+        screen = pygame.display.set_mode( (width, height))
+        fondo = pygame.image.load('imagesInicio/setList.JPG').convert() 
+        fondo = pygame.transform.scale(fondo,(width,height))
+        self.clock = pygame.time.Clock()
+        cont =0
+        while inicio:
+            
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    pygame.quit()
+                    quit()
+                if cont >=1000:
+                    inicio = False
+                screen.blit(fondo, (0, 0))
+                pygame.display.update()
+                self.clock.tick(30)#FPS = 30 
+            cont+=1
+
 # ---------------------------------------------------------------------
 # Funciones
 # ---------------------------------------------------------------------
