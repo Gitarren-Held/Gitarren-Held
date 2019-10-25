@@ -5,6 +5,19 @@ from pygame.locals import *
 # Constantes
 width = 640
 height = 480
+WHITE = (255,255,255)
+GREEN = (0,255,0)
+RED = (255,0,0)
+BLUE = (0,0,255)
+BLACK = (0,0,0)
+FUCHSIA = (255, 0, 255)
+GRAY = (128, 128, 128)
+LIME = (0, 128, 0)
+MAROON = (128, 0, 0)
+NAVYBLUE = (0, 0, 128)
+OLIVE = (128, 128, 0)
+PURPLE = (128, 0, 128)
+TEAL = (0,128,128)
 # ---------------------------------------------------------------------
 # Clases
 class Opcion:
@@ -32,7 +45,8 @@ class Opcion:
         self.funcion_asignada()
 class Cursor:
     def __init__(self, x, y, dy):
-        self.image = pygame.image.load('images/fuego.png').convert_alpha()
+        self.image = pygame.image.load('images/fuego1.png').convert_alpha()
+        self.image = pygame.transform.scale(self.image,(20,20))
         self.rect = self.image.get_rect()
         self.rect.x = x
         self.y_inicial = y
@@ -50,7 +64,9 @@ class Menu:
     #"Representa el menú, de guitar Hero"
     def __init__(self, opciones):
         self.opciones = []
-        fuente = pygame.font.Font('images/dejavu.ttf', 20)
+    
+        fuente = pygame.font.Font('images/Old.ttf', 20)
+        self.color = Color('WHITE')
         x = 260 #posicion inicial del menú
         y = 260
         paridad = 1

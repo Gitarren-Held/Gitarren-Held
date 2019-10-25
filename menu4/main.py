@@ -3,21 +3,10 @@ import random
 import pygame,sys
 from pygame.locals import *
 from classMenu import * #Importamos la claseMenu!
+import utils
+from utils import *
 # Funciones
-def iniciar_solo():
-    print( " Inicia Modo Solo")
-def iniciar_carrera():
-    print (" Inicio Modo Carrera!")
-def creditos():
-    print (" Créditos!!")
-def salir_del_programa():
-    print (" Salir de Guitar Hero.")
-    sys.exit(0)
 # Constantes
-width = 640
-height = 480
-opciones = [("Solo", iniciar_solo),("Carrera", iniciar_carrera),("Creditos", creditos),("Salir", salir_del_programa)]
-
 # ---------------------------------------------------------------------
 # Clases         
 # ---------------------------------------------------------------------
@@ -26,7 +15,7 @@ opciones = [("Solo", iniciar_solo),("Carrera", iniciar_carrera),("Creditos", cre
 def main():
     pygame.font.init()
     screen = pygame.display.set_mode((width, height))
-    fondo = pygame.image.load('images/fondo2.png').convert() 
+    fondo = pygame.image.load('imagesInicio/inicio.JPG').convert() 
     icon = pygame.image.load('images/iconGuitarHero.png') 
     fondo = pygame.transform.scale(fondo,(width,height))#Escalamos la imagen en Pygame
     menu = Menu(opciones)
