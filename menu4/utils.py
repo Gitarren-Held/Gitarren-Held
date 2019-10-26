@@ -17,6 +17,8 @@ def salir_del_programa():
 #constantes
 width = 640
 height = 480
+cancion = ""
+dificultad = ""
 opciones = [("Solo", iniciar_solo),("Carrera", iniciar_carrera),("Creditos", creditos),("Salir", salir_del_programa)]
 #Colores RGB
 black = (0, 0, 0)

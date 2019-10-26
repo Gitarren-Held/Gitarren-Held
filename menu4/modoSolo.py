@@ -2,9 +2,11 @@
 import random
 import pygame,sys
 from pygame.locals import *
+import utils
+from utils import *
 #Funciones privadas:
 def cancion1():
-    print ("Selecciono la cancion 1 ")
+    cancion = "backinBlack"
 def cancion2():
     print ("Selecciono la cancion 2 ")
 def cancion3():
