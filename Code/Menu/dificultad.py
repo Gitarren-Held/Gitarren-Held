@@ -3,18 +3,16 @@ import random
 import pygame,sys
 from pygame.locals import *
 #Funciones privadas:
-def cancion1():
+def easy():
     print ("Selecciono la cancion 1 ")
-def cancion2():
+def medium():
     print ("Selecciono la cancion 2 ")
-def cancion3():
+def hard():
     print ("Selecciono la cancion 3 ")
-def cancion4():
+def expert():
     print ("Selecciono la cancion 4 ")
-def cancion5():
-    print ("Selecciono la cancion 5 ")
 #Constantes privadas:
-dificultades = [("Easy", cancion1),("Medium", cancion2),("Hard", cancion3),("Expert", cancion4)]
+dificultades = [("Easy", easy),("Medium", medium),("Hard", hard),("Expert", expert)]
 width = 640
 height = 480
 black = (0, 0, 0)
@@ -110,7 +108,7 @@ class Menudificulty:
         self.cursor.imprimir(screen)
         for dificulty in self.dificultades:
             dificulty.imprimir(screen)
-def solo():
+def Dificultad(cancion):
     pygame.font.init()
     screen = pygame.display.set_mode((width, height))
     fondo = pygame.image.load('imagesInicio/Dificulty.JPG').convert() 
@@ -118,6 +116,7 @@ def solo():
     menu = Menudificulty(dificultades)
     pygame.display.set_caption('Guitar Hero') 
     salir = False
+    print(cancion)
     while not salir:
         for event in pygame.event.get():
             if event.type == QUIT:

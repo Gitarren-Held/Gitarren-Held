@@ -4,10 +4,13 @@ import pygame,sys
 from pygame.locals import *
 import utils
 from utils import *
+from creadorArchivos import *
+from dificultad import *
+
 #Funciones privadas:
 def cancion1():
     cancion = "backinBlack"
-    
+    Dificultad(cancion)
 def cancion2():
     print ("Selecciono la cancion 2 ")
 def cancion3():
