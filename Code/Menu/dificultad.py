@@ -2,15 +2,22 @@
 import random
 import pygame,sys
 from pygame.locals import *
+import utils
+from utils import *
+from abrirArchivos import *
 #Funciones privadas:
 def easy():
-    print ("Selecciono la cancion 1 ")
+    dificultad = "easy"
+    return dificultad
 def medium():
-    print ("Selecciono la cancion 2 ")
+    dificultad = "medium"
+    return dificultad
 def hard():
-    print ("Selecciono la cancion 3 ")
+    dificultad = "hard"
+    return dificultad
 def expert():
-    print ("Selecciono la cancion 4 ")
+    dificultad = "expert"
+    return dificultad
 #Constantes privadas:
 dificultades = [("Easy", easy),("Medium", medium),("Hard", hard),("Expert", expert)]
 width = 640
@@ -22,10 +29,11 @@ red = (255, 0, 0)
 green = (0, 255, 0)
 blue = (0, 0, 255)
 yellow = (255, 255, 0)
+#Clases privadas
 class dificulty:
     def __init__(self, fuente, titulo, x, y, paridad, funcion_asignada):
-        self.imagen_normal = fuente.render(titulo, 1, (black))#acá cambiamos el color de letra normal
-        self.imagen_destacada = fuente.render(titulo, 2, (blue))
+        self.imagen_normal = fuente.render(titulo, 1, (white))#acá cambiamos el color de letra normal
+        self.imagen_destacada = fuente.render(titulo, 1, (white))
         self.image = self.imagen_normal
         self.rect = self.image.get_rect()
         self.rect.x = 500 * paridad
@@ -33,7 +41,7 @@ class dificulty:
         self.funcion_asignada = funcion_asignada
         self.x = float(self.rect.x)
     def actualizar(self):
-        destino_x = 90
+        destino_x = 315
         self.x += (destino_x - self.x) / 5.0
         self.rect.x = int(self.x)
     def imprimir(self, screen):
@@ -43,12 +51,14 @@ class dificulty:
             self.image = self.imagen_destacada
         else:
             self.image = self.imagen_normal
-    def activar(self):
-        self.funcion_asignada()
+    def activar(self,cancion):
+        nivel = self.funcion_asignada()
+        filename = nivel+cancion+".txt"
+        cargarArchivo(filename,self)
 class Cursor:
     def __init__(self, x, y, dy):
-        self.image = pygame.image.load('images/cursor.png').convert_alpha()
-        #self.image = pygame.transform.scale(self.image,(20,20))
+        self.image = pygame.image.load('images/fuego1.png').convert_alpha()
+        self.image = pygame.transform.scale(self.image,(20,20))
         self.rect = self.image.get_rect()
         self.rect.x = x
         self.y_inicial = y
@@ -66,9 +76,9 @@ class Menudificulty:
     #"Representa el menú, de guitar Hero"
     def __init__(self, dificultades):
         self.dificultades = []
-        fuente = pygame.font.Font('images/white-space.ttf', 25)
-        x = 80 #posicion inicial del menú
-        y = 260
+        fuente = pygame.font.Font('images/white-space.ttf', 20)
+        x = 310 #posicion inicial del menú
+        y = 270
         paridad = 1
         self.cursor = Cursor(x - 30, y, 30)
         for titulo, funcion in dificultades:
@@ -78,10 +88,11 @@ class Menudificulty:
                 paridad = -1
             else:
                 paridad = 1
+              
         self.seleccionado = 0
         self.total = len(self.dificultades)
         self.mantiene_pulsado = False
-    def actualizar(self):
+    def actualizar(self,cancion):
         """Altera el valor de 'self.seleccionado' con los direccionales."""
         k = pygame.key.get_pressed()
         if not self.mantiene_pulsado:
@@ -91,7 +102,7 @@ class Menudificulty:
                 self.seleccionado += 1
             elif k[K_RETURN]:
                 # Invoca a la función asociada a la opción.
-                self.dificultades[self.seleccionado].activar()
+                self.dificultades[self.seleccionado].activar(cancion)
         # procura que el cursor esté entre las dificultades permitidas
         if self.seleccionado < 0:
             self.seleccionado = 0
@@ -116,17 +127,17 @@ def Dificultad(cancion):
     menu = Menudificulty(dificultades)
     pygame.display.set_caption('Guitar Hero') 
     salir = False
-    print(cancion)
     while not salir:
         for event in pygame.event.get():
             if event.type == QUIT:
                 salir = True
+
             if event.type == pygame.KEYDOWN:
             #En el caso de que se apreta la letra q , se cierra la ventana.
                 if event.key == pygame.K_q:
                     salir = True
         screen.blit(fondo, (0, 0))
-        menu.actualizar()
+        menu.actualizar(cancion)
         menu.imprimir(screen)
         pygame.display.flip()
         pygame.time.delay(0)

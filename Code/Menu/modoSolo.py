@@ -2,10 +2,9 @@
 import random
 import pygame,sys
 from pygame.locals import *
-import utils
 from utils import *
-from creadorArchivos import *
 from dificultad import *
+
 
 #Funciones privadas:
 def cancion1():
