@@ -27,8 +27,8 @@ class note(pygame.sprite.Sprite):
         self.y = y
         self.Max = HEIGHT
         self.contador = 0  
-        self.TamX=32
-        self.TamY=16
+        self.TamX=64
+        self.TamY=32
         self.image = pygame.transform.scale(self.image,(self.TamX,self.TamY))
         self.tipo = "Def"
     #dibuja la nota en pantalla 
@@ -37,27 +37,27 @@ class note(pygame.sprite.Sprite):
         
     #movimiento : mueve la nota hasta el limite de pantalla
     def __movimientos(self,dificultad):
-        if(self.y < 320):
+        if((self.y < 300)):
             if(self.y>-50):
                 if(self.TamX<128):
                     self.TamX = self.TamX+1
                     self.TamY = self.TamY+1
                     #self.image = pygame.transform.scale(self.image,(self.TamX,self.TamY))
                 if(self.tipo=="Green"):     
+                    self.x -= 1.2
+                    self.rect.left -=1
+                if(self.tipo=="Red"):
                     self.x -= 0.6
                     self.rect.left -=0.6
-                if(self.tipo=="Red"):
-                    self.x -= 0.3
-                    self.rect.left -=0.3
                 if(self.tipo=="Yellow"):
                     self.x -= 0
                     self.rect.left -=0
                 if(self.tipo=="Blue"):
-                    self.x += 0.3
-                    self.rect.left +=0.3
-                if(self.tipo=="Orange"):
                     self.x += 0.6
                     self.rect.left +=0.6
+                if(self.tipo=="Orange"):
+                    self.x += 1.1
+                    self.rect.left +=1.1
             if(dificultad==0):
                 self.rect.top+=1
                 self.y +=1
@@ -83,23 +83,23 @@ class note(pygame.sprite.Sprite):
 def Linea(screen,notas,x,y):
     listaNotas=[]
     if(notas[0]==1):
-        Green = note(x,y,"Green")
+        Green = note(x+84,y,"Green")
         Green.tipo = "Green"
         listaNotas.append(Green)
     if(notas[1]==1):
-        Red = note(x,y,"Red")
+        Red = note(x+120,y,"Red")
         Red.tipo = "Red"
         listaNotas.append(Red)
     if(notas[2]==1):
-        Yellow = note(x,y,"Yellow")
+        Yellow = note(x+148,y,"Yellow")
         Yellow.tipo = "Yellow"
         listaNotas.append(Yellow)
     if(notas[3]==1):
-        Blue = note(x,y,"Blue")
+        Blue = note(x+176,y,"Blue")
         Blue.tipo = "Blue"
         listaNotas.append(Blue)
     if(notas[4]==1):
-        Orange = note(x,y,"Orange")
+        Orange = note(x+220,y,"Orange")
         Orange.tipo = "Orange"
         listaNotas.append(Orange)
     return listaNotas
@@ -107,21 +107,16 @@ def Linea(screen,notas,x,y):
 def movimientolista(listaNotas,screen):
     for i in range(0,len(listaNotas)):
         listaNotas[i].comportamiento(1)
-        listaNotas[i].draw(screen)
+        if(listaNotas[i].y>10):
+            listaNotas[i].draw(screen)
         #if(listaNotas[i].y>320):
-        #   screen.fill([0,0,0])
+       
    
 
 
 def main():
-    Guitarra = pygame.image.load("Img/Notas/Background.png")
-    Guitarra=pygame.transform.scale(Guitarra,(210,100))
-    Guitarra1 = pygame.image.load("Img/Notas/Background.png")
-    Guitarra1=pygame.transform.scale(Guitarra,(180,100))
-    Guitarra2 = pygame.image.load("Img/Notas/Background.png")
-    Guitarra2= pygame.transform.scale(Guitarra,(150,100))
-    Guitarra3 = pygame.image.load("Img/Notas/Background.png")
-    Guitarra3= pygame.transform.scale(Guitarra3,(120,100))
+    Guitarra = pygame.image.load("Img/Notas/Background3.png")
+    Guitarra=pygame.transform.scale(Guitarra,(1280,720))
     reloj = pygame.time.Clock()
     screen = pygame.display.set_mode((WIDTH, HEIGHT))
     pygame.display.set_caption("Pruebas Pygame")
@@ -138,13 +133,11 @@ def main():
         MatrizNotas.append(input)
     for i in range(0,len(MatrizNotas)):
         #crea las lineas de "notas" 
-        LineaN = Linea(screen,MatrizNotas[i],250,(0-(40*i)))
+        LineaN = Linea(screen,MatrizNotas[i],150,(0-(40*i)))
         MatrizLNotas.append(LineaN)
     while True:
-        screen.blit(Guitarra,(165,240))
-        screen.blit(Guitarra1,(180,140))
-        screen.blit(Guitarra2,(195,40))
-        screen.blit(Guitarra3,(210,-60))
+        screen.fill([0,0,0])
+        screen.blit(Guitarra,(-315,-180))
         reloj.tick(60)
         for eventos in pygame.event.get():
             if eventos.type == QUIT:
