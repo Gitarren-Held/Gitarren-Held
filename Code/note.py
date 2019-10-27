@@ -26,9 +26,9 @@ class note(pygame.sprite.Sprite):
         self.x = x
         self.y = y
         self.Max = HEIGHT
-        self.contador = 0  
-        self.TamX=64
-        self.TamY=32
+        self.ubicar = 0  
+        self.TamX=32
+        self.TamY=16
         self.image = pygame.transform.scale(self.image,(self.TamX,self.TamY))
         self.tipo = "Def"
     #dibuja la nota en pantalla 
@@ -38,26 +38,29 @@ class note(pygame.sprite.Sprite):
     #movimiento : mueve la nota hasta el limite de pantalla
     def __movimientos(self,dificultad):
         if((self.y < 300)):
-            if(self.y>-50):
-                if(self.TamX<128):
-                    self.TamX = self.TamX+1
-                    self.TamY = self.TamY+1
-                    #self.image = pygame.transform.scale(self.image,(self.TamX,self.TamY))
+            if(self.y>-20):
+                if((self.y>60)and(self.TamX<65)):
+                    self.TamX += (int)(self.y*0.015)
+                    self.TamY += (int)(self.y*0.011)
+                    self.x += -0.5
+                    print(self.TamX)
+                    self.image = load_image("Img/Notas/"+self.tipo+".png", True)
+                    self.image = pygame.transform.scale(self.image,(self.TamX,self.TamY))
                 if(self.tipo=="Green"):     
-                    self.x -= 1.2
-                    self.rect.left -=1
+                    self.x -=1.45
+                    self.rect.left -=1.45
                 if(self.tipo=="Red"):
-                    self.x -= 0.6
-                    self.rect.left -=0.6
+                    self.x -= 0.8
+                    self.rect.left -=0.8
                 if(self.tipo=="Yellow"):
-                    self.x -= 0
-                    self.rect.left -=0
+                    self.x -= 0.05
+                    self.rect.left -=0.05
                 if(self.tipo=="Blue"):
-                    self.x += 0.6
-                    self.rect.left +=0.6
+                    self.x += 0.5
+                    self.rect.left +=0.5
                 if(self.tipo=="Orange"):
-                    self.x += 1.1
-                    self.rect.left +=1.1
+                    self.x += 1.2
+                    self.rect.left +=1.2
             if(dificultad==0):
                 self.rect.top+=1
                 self.y +=1
@@ -70,9 +73,7 @@ class note(pygame.sprite.Sprite):
             if(dificultad==3):
                 self.rect.top+=6
                 self.y +=6
-        if(self.y == 320):
-            print("kill")
-            self.kill()
+            #pygame.display.update()
     #metodo que genera el movimiento
     def comportamiento(self,dificultad):
         self.__movimientos(dificultad)
@@ -83,23 +84,23 @@ class note(pygame.sprite.Sprite):
 def Linea(screen,notas,x,y):
     listaNotas=[]
     if(notas[0]==1):
-        Green = note(x+84,y,"Green")
+        Green = note(x+100,y,"Green")
         Green.tipo = "Green"
         listaNotas.append(Green)
     if(notas[1]==1):
-        Red = note(x+120,y,"Red")
+        Red = note(x+135,y,"Red")
         Red.tipo = "Red"
         listaNotas.append(Red)
     if(notas[2]==1):
-        Yellow = note(x+148,y,"Yellow")
+        Yellow = note(x+158,y,"Yellow")
         Yellow.tipo = "Yellow"
         listaNotas.append(Yellow)
     if(notas[3]==1):
-        Blue = note(x+176,y,"Blue")
+        Blue = note(x+200,y,"Blue")
         Blue.tipo = "Blue"
         listaNotas.append(Blue)
     if(notas[4]==1):
-        Orange = note(x+220,y,"Orange")
+        Orange = note(x+230,y,"Orange")
         Orange.tipo = "Orange"
         listaNotas.append(Orange)
     return listaNotas
@@ -107,20 +108,21 @@ def Linea(screen,notas,x,y):
 def movimientolista(listaNotas,screen):
     for i in range(0,len(listaNotas)):
         listaNotas[i].comportamiento(1)
-        if(listaNotas[i].y>10):
+        if(listaNotas[i].y>-10):
             listaNotas[i].draw(screen)
-        #if(listaNotas[i].y>320):
+        if(listaNotas[i].y>300):
+            listaNotas[i].kill()
+            
        
    
 
 
 def main():
-    Guitarra = pygame.image.load("Img/Notas/Background3.png")
+    Guitarra = pygame.image.load("Img/Notas/Background4.png")
     Guitarra=pygame.transform.scale(Guitarra,(1280,720))
     reloj = pygame.time.Clock()
     screen = pygame.display.set_mode((WIDTH, HEIGHT))
     pygame.display.set_caption("Pruebas Pygame")
-    pygame.display.update()
     #se crean dos arreglo
     MatrizNotas=[]
     MatrizLNotas=[]
