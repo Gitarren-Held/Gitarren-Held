@@ -15,6 +15,8 @@ def matriz(archivo):
                 matris[i][j]=parte[j-1]
         linea=arch.readline.strip
 
+    return matris
+
 
 
 
