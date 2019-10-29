@@ -131,7 +131,7 @@ def main():
         #crea cada vez una linea ( inputArduino) nueva 
         input = [random.randrange(4),random.randrange(4),random.randrange(4),0,0,0,0,0]
         print(input)
-        MatrizNotas.append(input)
+        MatrizNotas =Api.matriz(test-song1)
     for i in range(0,len(MatrizNotas)):
         #crea las lineas de "notas" 
         LineaN = Linea(screen,MatrizNotas[i],150,(0-(80*i)))
