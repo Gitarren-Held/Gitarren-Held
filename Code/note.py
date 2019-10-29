@@ -1,6 +1,7 @@
 import sys, pygame
 import threading
 import time
+import os
 from pygame.locals import *
 from Api import *
 import random
@@ -76,6 +77,13 @@ class note(pygame.sprite.Sprite):
     #metodo que genera el movimiento
     def comportamiento(self,dificultad):
         self.__movimientos(dificultad)
+def load_sound(sound_filename):
+    """load the sound file from the given directory"""
+    sound = pygame.mixer.Sound("Sounds/"+sound_filename+".wav")
+    return sound
+
+
+
 #crea una lista de notas( solo crea notas si estas estan en el arreglo )
 # screen = pantalla de pygame
 # notas = arreglo de notas ej[0,0,1,1,0,0,1]
@@ -117,25 +125,26 @@ def movimientolista(listaNotas,screen):
 
 
 def main():
+    song = load_sound("test")
     Guitarra = pygame.image.load("Img/Notas/Background4.png")
     Guitarra=pygame.transform.scale(Guitarra,(1280,720))
     reloj = pygame.time.Clock()
     screen = pygame.display.set_mode((WIDTH, HEIGHT))
     pygame.display.set_caption("Pruebas Pygame")
     #se crean dos arreglo
-    MatrizNotas=[]
     MatrizLNotas=[]
     #se rellenan estos arreglos con 1000 datos (deberia cargar las lineas de la cancion)
-    print("Cancion: ")
-    for i in range(1000): 
-        #crea cada vez una linea ( inputArduino) nueva 
-        input = [random.randrange(4),random.randrange(4),random.randrange(4),0,0,0,0,0]
-        print(input)
-        MatrizNotas =Api.matriz(test-song1)
+    #crea cada vez una linea ( inputArduino) nueva 
+    MatrizNotas = matriz("Code/test-song1")
+    #for i in MatrizNotas:
+        #print(i)
+    
+
     for i in range(0,len(MatrizNotas)):
         #crea las lineas de "notas" 
         LineaN = Linea(screen,MatrizNotas[i],150,(0-(80*i)))
         MatrizLNotas.append(LineaN)
+    song.play()
     while True:
         screen.fill([0,0,0])
         screen.blit(Guitarra,(-315,-180))
