@@ -39,16 +39,15 @@ class note(pygame.sprite.Sprite):
     def __movimientos(self,dificultad):
         if((self.y < 300)):
             if(self.y>-20):
-                if((self.y>60)and(self.TamX<65)):
-                    self.TamX += (int)(self.y*0.015)
-                    self.TamY += (int)(self.y*0.011)
-                    self.x += -0.5
-                    print(self.TamX)
+                if((self.y>40)and(self.TamX<65)):
+                    self.TamX += (int)(self.y*0.011)
+                    self.TamY += (int)(self.y*0.010)
+                    self.x += -0.3
                     self.image = load_image("Img/Notas/"+self.tipo+".png", True)
                     self.image = pygame.transform.scale(self.image,(self.TamX,self.TamY))
                 if(self.tipo=="Green"):     
-                    self.x -=1.45
-                    self.rect.left -=1.45
+                    self.x -=1.4
+                    self.rect.left -=1.4
                 if(self.tipo=="Red"):
                     self.x -= 0.8
                     self.rect.left -=0.8
@@ -56,8 +55,8 @@ class note(pygame.sprite.Sprite):
                     self.x -= 0.05
                     self.rect.left -=0.05
                 if(self.tipo=="Blue"):
-                    self.x += 0.5
-                    self.rect.left +=0.5
+                    self.x += 0.6
+                    self.rect.left +=0.6
                 if(self.tipo=="Orange"):
                     self.x += 1.2
                     self.rect.left +=1.2
@@ -130,12 +129,12 @@ def main():
     print("Cancion: ")
     for i in range(1000): 
         #crea cada vez una linea ( inputArduino) nueva 
-        input = [random.randrange(2),random.randrange(2),random.randrange(2),random.randrange(2),random.randrange(2),0,0,0]
+        input = [random.randrange(4),random.randrange(4),random.randrange(4),0,0,0,0,0]
         print(input)
         MatrizNotas.append(input)
     for i in range(0,len(MatrizNotas)):
         #crea las lineas de "notas" 
-        LineaN = Linea(screen,MatrizNotas[i],150,(0-(40*i)))
+        LineaN = Linea(screen,MatrizNotas[i],150,(0-(80*i)))
         MatrizLNotas.append(LineaN)
     while True:
         screen.fill([0,0,0])
