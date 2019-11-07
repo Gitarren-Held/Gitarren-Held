@@ -21,43 +21,40 @@ class note(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.rect.centerx = x
         self.rect.centery = y
-        self.speed = 10
         self.rect.top = y
         self.rect.left = x
         self.x = x
-        self.y = y
-        self.Max = HEIGHT
-        self.ubicar = 0  
-        self.TamX=32
-        self.TamY=16
+        self.y = y 
+        self.TamX=16
+        self.TamY=8
         self.image = pygame.transform.scale(self.image,(self.TamX,self.TamY))
-        self.tipo = "Def"
+        self.tipo =tipo
     #dibuja la nota en pantalla 
     def draw(self, surface):
         surface.blit(self.image, (self.x, self.y))  
         
     #movimiento : mueve la nota hasta el limite de pantalla
     def __movimientos(self,dificultad):
-        if((self.y < 300)):
-            if(self.y>-20):
-                if((self.y>40)and(self.TamX<65)):
-                    self.TamX += (int)(self.y*0.011)
-                    self.TamY += (int)(self.y*0.010)
-                    self.x += -0.3
+        if((self.y < 400)):
+            if(self.y>60):
+                if((self.y>40)and(self.TamX<64)):
+                    self.TamY += (int)(self.y*0.006)
+                    self.TamX += (int)(self.y*0.009)
+                    self.x += 0.2
                     self.image = load_image("Img/Notas/"+self.tipo+".png", True)
                     self.image = pygame.transform.scale(self.image,(self.TamX,self.TamY))
                 if(self.tipo=="Green"):     
-                    self.x -=1.4
-                    self.rect.left -=1.4
+                    self.x -=1.7
+                    self.rect.left -=1.7
                 if(self.tipo=="Red"):
-                    self.x -= 0.8
-                    self.rect.left -=0.8
+                    self.x -= 1
+                    self.rect.left -=1
                 if(self.tipo=="Yellow"):
-                    self.x -= 0.05
-                    self.rect.left -=0.05
+                    self.x -= 0.28
+                    self.rect.left -=0.28
                 if(self.tipo=="Blue"):
-                    self.x += 0.6
-                    self.rect.left +=0.6
+                    self.x += 0.35
+                    self.rect.left +=0.35
                 if(self.tipo=="Orange"):
                     self.x += 1.2
                     self.rect.left +=1.2
@@ -81,9 +78,6 @@ def load_sound(sound_filename):
     """load the sound file from the given directory"""
     sound = pygame.mixer.Sound("Sounds/"+sound_filename+".wav")
     return sound
-
-
-
 #crea una lista de notas( solo crea notas si estas estan en el arreglo )
 # screen = pantalla de pygame
 # notas = arreglo de notas ej[0,0,1,1,0,0,1]
@@ -91,23 +85,23 @@ def load_sound(sound_filename):
 def Linea(screen,notas,x,y):
     listaNotas=[]
     if(notas[0]==1):
-        Green = note(x+100,y,"Green")
+        Green = note(x+130,y,"Green")
         Green.tipo = "Green"
         listaNotas.append(Green)
     if(notas[1]==1):
-        Red = note(x+135,y,"Red")
+        Red = note(x+150,y,"Red")
         Red.tipo = "Red"
         listaNotas.append(Red)
     if(notas[2]==1):
-        Yellow = note(x+158,y,"Yellow")
+        Yellow = note(x+165,y,"Yellow")
         Yellow.tipo = "Yellow"
         listaNotas.append(Yellow)
     if(notas[3]==1):
-        Blue = note(x+200,y,"Blue")
+        Blue = note(x+190,y,"Blue")
         Blue.tipo = "Blue"
         listaNotas.append(Blue)
     if(notas[4]==1):
-        Orange = note(x+230,y,"Orange")
+        Orange = note(x+210,y,"Orange")
         Orange.tipo = "Orange"
         listaNotas.append(Orange)
     return listaNotas
@@ -115,50 +109,7 @@ def Linea(screen,notas,x,y):
 def movimientolista(listaNotas,screen):
     for i in range(0,len(listaNotas)):
         listaNotas[i].comportamiento(1)
-        if(listaNotas[i].y>-10):
+        if((listaNotas[i].y>90)and(listaNotas[i].y<399)):
             listaNotas[i].draw(screen)
-        if(listaNotas[i].y>300):
+        if(listaNotas[i].y>400):
             listaNotas[i].kill()
-            
-       
-   
-
-
-def main():
-    song = load_sound("test")
-    Guitarra = pygame.image.load("Img/Notas/Background4.png")
-    Guitarra=pygame.transform.scale(Guitarra,(1280,720))
-    reloj = pygame.time.Clock()
-    screen = pygame.display.set_mode((WIDTH, HEIGHT))
-    pygame.display.set_caption("Pruebas Pygame")
-    #se crean dos arreglo
-    MatrizLNotas=[]
-    #se rellenan estos arreglos con 1000 datos (deberia cargar las lineas de la cancion)
-    #crea cada vez una linea ( inputArduino) nueva 
-    MatrizNotas = matriz("Code/test-song1")
-    #for i in MatrizNotas:
-        #print(i)
-    
-
-    for i in range(0,len(MatrizNotas)):
-        #crea las lineas de "notas" 
-        LineaN = Linea(screen,MatrizNotas[i],150,(0-(80*i)))
-        MatrizLNotas.append(LineaN)
-    song.play()
-    while True:
-        screen.fill([0,0,0])
-        screen.blit(Guitarra,(-315,-180))
-        reloj.tick(60)
-        for eventos in pygame.event.get():
-            if eventos.type == QUIT:
-                sys.exit(0) 
-        #for que genera el movimiento en las notas segun cuantas existan en la cancion
-        for i in range(0,len(MatrizNotas)):
-            movimientolista(MatrizLNotas[i],screen)
-        pygame.display.flip()
-        pygame.display.update()
-    return 0
- 
-if __name__ == '__main__':
-    pygame.init()
-    main()
