@@ -18,10 +18,10 @@ def main():
     fondo = pygame.image.load('imagesInicio/inicio.JPG').convert() 
     fondo = pygame.transform.scale(fondo,(width,height))#Escalamos la imagen en Pygame
     menu = Menu(opciones)
-    """menu.inicio1()
+    menu.inicio1()
     menu.inicio2()
     menu.inicio3()
-    menu.inicio4()"""
+    menu.inicio4()
     pygame.display.set_caption('Guitar Hero') 
     salir = False
     while not salir:

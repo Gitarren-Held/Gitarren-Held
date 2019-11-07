@@ -12,16 +12,16 @@ def mostrarloading(self):
     self.clock = pygame.time.Clock()
     cont =0
     while inicio:
-        
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
                 quit()
-            if cont >=100:
-                inicio = False
             screen.blit(fondo, (0, 0))
             pygame.display.update()
             self.clock.tick(30)#FPS = 30 
+        if cont>= 1000000:
+            inicio = False
         cont+=1
 def cargarArchivo(filename,self):
+    print(filename)
     mostrarloading(self)

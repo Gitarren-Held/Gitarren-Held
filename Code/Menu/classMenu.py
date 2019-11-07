@@ -4,7 +4,6 @@ import pygame,sys
 from pygame.locals import *
 import utils
 from utils import *
-
 # Constantes
 # ---------------------------------------------------------------------
 # Clases
@@ -122,16 +121,15 @@ class Menu:
         self.clock = pygame.time.Clock()
         cont =0
         while inicio:
-            
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     pygame.quit()
                     quit()
-                if cont >=100:
-                    inicio = False
                 screen.blit(fondo, (0, 0))
                 pygame.display.update()
                 self.clock.tick(30)#FPS = 30 
+            if cont>= 100000:
+                inicio = False
             cont+=1
     def inicio2(self):
         inicio = True
@@ -142,16 +140,15 @@ class Menu:
         self.clock = pygame.time.Clock()
         cont =0
         while inicio:
-            
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     pygame.quit()
                     quit()
-                if cont >=100:
-                    inicio = False
                 screen.blit(fondo, (0, 0))
                 pygame.display.update()
                 self.clock.tick(30)#FPS = 30 
+            if cont>= 100000:
+                inicio = False
             cont+=1
     def inicio3(self):
         inicio = True
@@ -167,11 +164,11 @@ class Menu:
                 if event.type == pygame.QUIT:
                     pygame.quit()
                     quit()
-                if cont >=100:
-                    inicio = False
                 screen.blit(fondo, (0, 0))
                 pygame.display.update()
                 self.clock.tick(30)#FPS = 30 
+            if cont>= 100000:
+                inicio = False
             cont+=1
     def inicio4(self):
         inicio = True
@@ -186,11 +183,11 @@ class Menu:
                 if event.type == pygame.QUIT:
                     pygame.quit()
                     quit()
-                if cont >=100:
-                    inicio = False
                 screen.blit(fondo, (0, 0))
                 pygame.display.update()
                 self.clock.tick(30)#FPS = 30 
+            if cont>= 100000:
+                inicio = False
             cont+=1
 # ---------------------------------------------------------------------
 # Funciones

@@ -5,7 +5,6 @@ from pygame.locals import *
 from utils import *
 from dificultad import *
 
-
 #Funciones privadas:
 def cancion1():
     cancion = "backinBlack"
