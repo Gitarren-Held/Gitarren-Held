@@ -2,7 +2,7 @@
 import serial
 import pygame
 
-arduino = serial.Serial(port='/dev/cu.usbmodem142301', baudrate=9600)
+arduino = serial.Serial(port='/dev/cu.usbmodem144401', baudrate=9600)
 listaInteprete = [0,0,0,0,0,0,0,0]
 pygame.init()
 def starPowerdef():

@@ -1,5 +1,7 @@
 from note import *
 from botonera import *
+from Arduino import *
+import random
 
 
 def main():
@@ -10,8 +12,8 @@ def main():
     screen = pygame.display.set_mode((WIDTH, HEIGHT))
     pygame.display.set_caption("Pruebas Pygame")
     #botonera
-    bot = Botonera(100,100,"Green")
-    bot.draw(screen)
+    botonera = BotoneraCompleta()
+    direccion = '/dev/cu.usbmodem144401'
     #se crean dos arreglo
     MatrizLNotas=[]
     #se rellenan estos arreglos con 1000 datos (deberia cargar las lineas de la cancion)
@@ -26,16 +28,18 @@ def main():
         MatrizLNotas.append(LineaN)
     song.play()
     while True:
+        inp = Leer(direccion)
+        reloj.tick(60)
         screen.fill([0,0,0])
         screen.blit(Guitarra,(-315,-180))
-        bot.comportamiento(bot.x,bot.y,screen)
-        reloj.tick(60)
         for eventos in pygame.event.get():
             if eventos.type == QUIT:
                 sys.exit(0) 
         #for que genera el movimiento en las notas segun cuantas existan en la cancion
         for i in range(0,len(MatrizNotas)):
             movimientolista(MatrizLNotas[i],screen)
+        comportamientoBotonera(botonera,inp)
+        drawAll(botonera,screen)
         pygame.display.flip()
         pygame.display.update()
     return 0 

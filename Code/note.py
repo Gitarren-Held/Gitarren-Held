@@ -35,7 +35,7 @@ class note(pygame.sprite.Sprite):
         
     #movimiento : mueve la nota hasta el limite de pantalla
     def __movimientos(self,dificultad):
-        if((self.y < 400)):
+        if((self.y < 440)):
             if(self.y>60):
                 if((self.y>40)and(self.TamX<64)):
                     self.TamY += (int)(self.y*0.006)
@@ -109,7 +109,7 @@ def Linea(screen,notas,x,y):
 def movimientolista(listaNotas,screen):
     for i in range(0,len(listaNotas)):
         listaNotas[i].comportamiento(1)
-        if((listaNotas[i].y>90)and(listaNotas[i].y<399)):
+        if((listaNotas[i].y>90)and(listaNotas[i].y<440)):
             listaNotas[i].draw(screen)
-        if(listaNotas[i].y>400):
+        if(listaNotas[i].y>440):
             listaNotas[i].kill()
