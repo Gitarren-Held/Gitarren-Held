@@ -1,7 +1,7 @@
 import serial
 import pygame
 
-
+#lee las lineas desde el aduino , direccion = puerto ej '/dev/cu.usbmodem144401'
 def Leer(direccion):
     arduino = serial.Serial(port=direccion, baudrate=9600)
     listaInteprete = [0,0,0,0,0,0,0,0]

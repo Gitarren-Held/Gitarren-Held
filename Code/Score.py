@@ -1,6 +1,6 @@
 from note import load_image
 import pygame
-
+#clase score muestra el puntaje total de la partida en pantalla
 class Score(pygame.sprite.Sprite):
     def __init__(self,x,y):
         self.image = load_image("Img/Gameplay/puntaje.png", True)
