@@ -4,14 +4,14 @@ from Arduino import *
 from Score import *
 from Medidor import *
 import random
-import pygame
+from pygame import *
 
 def main():
     song = load_sound("test")
     Guitarra = pygame.image.load("Img/Gameplay/Guitarra.png")
     Guitarra=pygame.transform.scale(Guitarra,(1280,720))
-    reloj = pygame.time.Clock()
     screen = pygame.display.set_mode((WIDTH, HEIGHT))
+    reloj = pygame.time.Clock()
     pygame.display.set_caption("Pruebas Pygame")
     #botonera
     botonera = BotoneraCompleta()
@@ -35,12 +35,12 @@ def main():
     song.play()
     while True:
         #inp = Leer(direccion)
-        #reloj.tick(60)
+        reloj.tick(60)
         screen.fill([0,0,0])
         screen.blit(Guitarra,(-315,-180))
         for eventos in pygame.event.get():
             if eventos.type == pygame.KEYDOWN:
-            # Resuelve que ha sido una tecla de flecha, por lo que
+                # Resuelve que ha sido una tecla de flecha, por lo que
             # ajusta la velocidad.
                 if eventos.key == pygame.K_z:
                     lista[0]=1
@@ -53,7 +53,7 @@ def main():
                 if eventos.key == pygame.K_b:
                     lista[4]=1
             if eventos.type == pygame.KEYUP:
-            # Resuelve que ha sido una tecla de flecha, por lo que
+                # Resuelve que ha sido una tecla de flecha, por lo que
             # ajusta la velocidad.
                 if eventos.key == pygame.K_z:
                     lista[0]=0
