@@ -4,7 +4,7 @@ from Arduino import *
 from Score import *
 from Medidor import *
 import random
-
+import pygame
 
 def main():
     song = load_sound("test")
@@ -35,7 +35,7 @@ def main():
     song.play()
     while True:
         #inp = Leer(direccion)
-        reloj.tick(60)
+        #reloj.tick(60)
         screen.fill([0,0,0])
         screen.blit(Guitarra,(-315,-180))
         for eventos in pygame.event.get():
