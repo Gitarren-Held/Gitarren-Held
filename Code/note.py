@@ -1,6 +1,6 @@
 import sys, pygame
 import threading
-import time
+#import time
 import os
 from pygame.locals import *
 from Api import *

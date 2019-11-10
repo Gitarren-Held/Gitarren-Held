@@ -3,9 +3,7 @@ from botonera import *
 from Arduino import *
 from Score import *
 from Medidor import *
-import random
-from pygame import *
-
+import random,pygame,time
 def main():
     song = load_sound("test")
     fps=0
@@ -13,7 +11,6 @@ def main():
     Guitarra = pygame.image.load("Img/Sprites/Guitarra/guitar"+str(cont)+".png")
     Guitarra=pygame.transform.scale(Guitarra,(1280,720))
     screen = pygame.display.set_mode((WIDTH, HEIGHT))
-    reloj = pygame.time.Clock()
     pygame.display.set_caption("Pruebas Pygame")
     #botonera
     botonera = BotoneraCompleta()
@@ -34,10 +31,10 @@ def main():
         # i comparar i+1 mismo valor 
         LineaN = Linea(screen,MatrizNotas[i],150,(0-(80*i)))
         MatrizLNotas.append(LineaN)
-    song.play()
+    #song.play()
+    clock = pygame.time.Clock()
     while True:
         #inp = Leer(direccion)
-        reloj.tick(60)
         screen.fill([0,0,0])
         screen.blit(Guitarra,(-315,-180))
         for eventos in pygame.event.get():
@@ -79,8 +76,9 @@ def main():
         medidor.draw(screen,101)
         pygame.display.flip()
         pygame.display.update()
+        clock.tick(60)
         #Cambio de Screen de la guitarra 
-        if fps>4:    
+        if fps>3:    
             if cont<16:
                 cont+=1
                 Guitarra = pygame.image.load("Img/Sprites/Guitarra/guitar"+str(cont)+".png")

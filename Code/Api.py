@@ -37,7 +37,7 @@ def matriz(archivo):
     cancion.close()
     return matris
 # ---------------------------------------------------------------------
- 
+""" 
 def main():
     screen = pygame.display.set_mode((WIDTH, HEIGHT))
     pygame.display.set_caption("Pruebas Pygame")
@@ -52,7 +52,6 @@ def main():
         screen.blit(background_image, (0, 0))
         pygame.display.flip()
     return 0
- 
 if __name__ == '__main__':
     pygame.init()
-    main()
+    main()"""
