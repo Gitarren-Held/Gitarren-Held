@@ -8,7 +8,9 @@ from pygame import *
 
 def main():
     song = load_sound("test")
-    Guitarra = pygame.image.load("Img/Gameplay/Guitarra.png")
+    fps=0
+    cont=1
+    Guitarra = pygame.image.load("Img/Sprites/Guitarra/guitar"+str(cont)+".png")
     Guitarra=pygame.transform.scale(Guitarra,(1280,720))
     screen = pygame.display.set_mode((WIDTH, HEIGHT))
     reloj = pygame.time.Clock()
@@ -77,6 +79,18 @@ def main():
         medidor.draw(screen,101)
         pygame.display.flip()
         pygame.display.update()
+        #Cambio de Screen de la guitarra 
+        if fps>4:    
+            if cont<16:
+                cont+=1
+                Guitarra = pygame.image.load("Img/Sprites/Guitarra/guitar"+str(cont)+".png")
+                Guitarra=pygame.transform.scale(Guitarra,(1280,720))
+            else:
+                cont=1
+                Guitarra = pygame.image.load("Img/Sprites/Guitarra/guitar"+str(cont)+".png")
+                Guitarra=pygame.transform.scale(Guitarra,(1280,720))
+            fps=0
+        fps+=1
     return 0 
 if __name__ == '__main__':
     pygame.init()
