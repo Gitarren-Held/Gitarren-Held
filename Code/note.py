@@ -32,7 +32,6 @@ class note(pygame.sprite.Sprite):
     #dibuja la nota en pantalla 
     def draw(self, surface):
         surface.blit(self.image, (self.x, self.y))  
-        
     #movimiento : mueve la nota hasta el limite de pantalla
     def __movimientos(self,dificultad):
         if((self.y < 440)):

@@ -11,7 +11,7 @@ def main():
     Guitarra = pygame.image.load("Img/Sprites/Guitarra/guitar"+str(cont)+".png")
     Guitarra=pygame.transform.scale(Guitarra,(1280,720))
     screen = pygame.display.set_mode((WIDTH, HEIGHT))
-    pygame.display.set_caption("Pruebas Pygame")
+    pygame.display.set_caption("Guitarrend Held")
     #botonera
     botonera = BotoneraCompleta()
     direccion = '/dev/cu.usbmodem144401'
@@ -26,13 +26,14 @@ def main():
     MatrizNotas = matriz("Code/test-song1")
     #for i in MatrizNotas:
         #print(i)
+    clock = pygame.time.Clock() 
     for i in range(0,len(MatrizNotas)):
         #crea las lineas de "notas" 
         # i comparar i+1 mismo valor 
+        #MatrizNotas[i]--> Fila de la matriz
         LineaN = Linea(screen,MatrizNotas[i],150,(0-(80*i)))
-        MatrizLNotas.append(LineaN)
+        MatrizLNotas.append(LineaN)   
     #song.play()
-    clock = pygame.time.Clock()
     while True:
         #inp = Leer(direccion)
         screen.fill([0,0,0])
@@ -89,6 +90,7 @@ def main():
                 Guitarra=pygame.transform.scale(Guitarra,(1280,720))
             fps=0
         fps+=1
+    pygame.quit()
     return 0 
 if __name__ == '__main__':
     pygame.init()

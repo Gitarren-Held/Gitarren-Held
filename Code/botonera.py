@@ -1,6 +1,5 @@
 import pygame
 from note import *
-
 class Botonera(pygame.sprite.Sprite):
     def __init__(self,x,y,tipo):
         self.image = load_image("Img/Botonera/"+tipo+".png", True)
@@ -12,8 +11,7 @@ class Botonera(pygame.sprite.Sprite):
         self.rect.left = x
         self.x  = x
         self.y  = y
-        self.tipo = tipo 
-        
+        self.tipo = tipo      
     def draw(self,surface):
         surface.blit(self.image,(self.x,self.y))
     def __On(self,num,slayer):
@@ -25,8 +23,6 @@ class Botonera(pygame.sprite.Sprite):
             self.image = pygame.transform.scale(load_image("Img/Botonera/"+self.tipo+".png", True),(100,56))  
     def comportamiento(self,num,slayer):
         self.__On(num,slayer)
-
-
 def BotoneraCompleta():
     bot = []
     botG = Botonera(75,420,"Green")

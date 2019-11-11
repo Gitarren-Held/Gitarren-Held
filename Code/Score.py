@@ -1,6 +1,5 @@
 from note import load_image
 import pygame
-
 class Score(pygame.sprite.Sprite):
     def __init__(self,x,y):
         self.image = load_image("Img/Gameplay/puntaje.png", True)
