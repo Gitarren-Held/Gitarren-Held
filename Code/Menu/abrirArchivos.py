@@ -1,8 +1,7 @@
 import pygame,sys
 from modoSolo import *
 from classMenu import *
-archive = '../'
-from archive.Code import Gameplay
+
 width = 640
 height = 480
 def mostrarloading(self):
@@ -27,5 +26,5 @@ def mostrarloading(self):
 def cargarArchivo(filename,self):
     print(filename)
     #Poner Gameplay.
-    Gameplay.main()
+    
     mostrarloading(self)
