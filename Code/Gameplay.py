@@ -51,7 +51,7 @@ def main():
     #termina de cargar la cancion en memoria
     #-----------------------------------------------------------------------------
     #comienza el loop y por lo tanto la cancion se ejecuta
-    song.play()
+    #song.play()
     while True:
         #input arduino (error de lag)
         #inp = Leer(direccion)
