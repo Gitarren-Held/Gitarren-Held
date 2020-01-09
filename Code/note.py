@@ -87,7 +87,6 @@ def load_sound(sound_filename):
     """load the sound file from the given directory"""
     sound = pygame.mixer.Sound("Sounds/"+sound_filename+".wav")
     return sound
-
 #crea una lista de notas( solo crea notas si estas estan en el arreglo )
 # screen = pantalla de pygame
 # notas = arreglo de notas ej[0,0,1,1,0,0,1]
