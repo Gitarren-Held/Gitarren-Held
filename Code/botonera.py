@@ -1,13 +1,6 @@
 import pygame
 from note import *
-WIDTH = 640
-HEIGHT = 480
-color = (31,255,0)
-start_pos = (0, 420)
-end_pos = (WIDTH,420)
-start_pos2 = (0, 440)
-end_pos2 = (WIDTH,440)
-width = 1
+
 #clase botonera "OJO " solo carga un 'boton'
 class Botonera(pygame.sprite.Sprite):
     #parametros x e y (posicion), tipo = Green,Blue etc...
@@ -25,17 +18,7 @@ class Botonera(pygame.sprite.Sprite):
     #dibuja la clase , surface = pantalla donde se dibuja   
     def draw(self,surface):
         surface.blit(self.image,(self.x,self.y))
-    def is_collided_with(self, sprite):
-        return self.rect.colliderect(sprite.rect)
-    def Active_collider(self,sprite,score):
-        #print(len(sprite))
-        for i in range(0,len(sprite)):
-            if((self.is_collided_with(sprite[i]))and(self.tipo==sprite[i].tipo)and(sprite[i].y>439)and(sprite[i].y<471)):
-                sprite[i].kill()
-                score+=1
-                return True
-        return False
-        
+    
     #determina el estado del 'boton' dependiendo del input del usuario
     #1 = activo, num = arreglo[posicion](0,0,0,0,0,0)
     def __On(self,num,slayer):

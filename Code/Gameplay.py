@@ -6,16 +6,9 @@ from Medidor import *
 import random
 WIDTH = 640
 HEIGHT = 480
-color = (31,255,0)
-start_pos = (0, 440)
-end_pos = (WIDTH,440)
-start_pos2 = (0, 470)
-end_pos2 = (WIDTH,470)
-width = 1
 
 def main():
     #carga cancion por test
-    scor = 0
     song = load_sound("test")
     #-----------------------------------------------------------------------------
     #carga img de guitarra ( fondo donde van las notas) y luego le da un tamaño
@@ -67,29 +60,14 @@ def main():
             # Resuelve que ha sido una tecla de flecha, por lo que
             # ajusta la velocidad.
                 if eventos.key == pygame.K_z:
-                    for i in range(0,len(MatrizLNotas)):
-                        if(botonera[0].Active_collider(MatrizLNotas[i],scor)):
-                           scor+=1
                     lista[0]=1
                 if eventos.key == pygame.K_x:
-                    for i in range(0,len(MatrizLNotas)):
-                       if(botonera[1].Active_collider(MatrizLNotas[i],scor)):
-                           scor+=1
                     lista[1]=1
                 if eventos.key == pygame.K_c:
-                    for i in range(0,len(MatrizLNotas)):
-                        if(botonera[2].Active_collider(MatrizLNotas[i],scor)):
-                           scor+=1
                     lista[2]=1
                 if eventos.key == pygame.K_v:
-                    for i in range(0,len(MatrizLNotas)):
-                        if(botonera[3].Active_collider(MatrizLNotas[i],scor)):
-                           scor+=1
                     lista[3]=1
                 if eventos.key == pygame.K_b:
-                    for i in range(0,len(MatrizLNotas)):
-                       if(botonera[4].Active_collider(MatrizLNotas[i],scor)):
-                           scor+=1
                     lista[4]=1
             if eventos.type == pygame.KEYUP:
             # Resuelve que ha sido una tecla de flecha, por lo que
@@ -113,13 +91,10 @@ def main():
         #-----------------------------------------------------------------------------
         #for que genera el movimiento en las notas segun cuantas existan en la cancion
         for i in range(0,len(MatrizNotas)):
-            movimientolista(MatrizLNotas[i],screen,botonera)
+            movimientolista(MatrizLNotas[i],screen)
+        score.draw(screen,0)
         medidor.evaluar(101)
-        print(scor)
-        score.draw(screen,scor)
         medidor.draw(screen,101)
-        pygame.draw.line(screen, color, start_pos, end_pos, width)
-        pygame.draw.line(screen, color, start_pos2, end_pos2, width)
         pygame.display.flip()
         pygame.display.update()
     return 0 
