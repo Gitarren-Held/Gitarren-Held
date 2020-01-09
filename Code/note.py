@@ -1,18 +1,16 @@
 import sys, pygame
 import threading
-#import time
+import time
 import os
 from pygame.locals import *
 from Api import *
 import random
-# Constantes
-# NO CONSIDERAR:usar velocidades para que tengan distinto ritmo falta agregar metodo para mover el arreglo (sigue usando el arreglo si sirve)
 WIDTH = 640
 HEIGHT = 480
-EASY = 0
-MEDIUM = 1
-HARD = 2
-EXPERT =3
+color = (31,255,0)
+start_pos = (0, 420)
+end_pos = (WIDTH,420)
+width = 1
 #Clase que almacena la "nota" en el constructor cuenta con un "x" e "y" que son la posicion donde partiran esta nota 
 class note(pygame.sprite.Sprite):
     def __init__(self,x,y,tipo):
@@ -31,17 +29,24 @@ class note(pygame.sprite.Sprite):
         self.tipo =tipo
     #dibuja la nota en pantalla 
     def draw(self, surface):
+        start_pos = (0, self.y)
+        end_pos = (WIDTH,self.y)
+        pygame.draw.line(surface, color, start_pos, end_pos, width)
         surface.blit(self.image, (self.x, self.y))  
+    def is_collided_with(self, sprite):
+        return self.rect.colliderect(sprite.rect)
     #movimiento : mueve la nota hasta el limite de pantalla
     def __movimientos(self,dificultad):
-        if((self.y < 440)):
+        if((self.y < HEIGHT)):
             if(self.y>60):
+                #crece la nota en los rangos definidos
                 if((self.y>40)and(self.TamX<64)):
                     self.TamY += (int)(self.y*0.006)
                     self.TamX += (int)(self.y*0.009)
                     self.x += 0.2
                     self.image = load_image("Img/Notas/"+self.tipo+".png", True)
                     self.image = pygame.transform.scale(self.image,(self.TamX,self.TamY))
+                #dependiendo de cada tipo de nota esta se movera hacia izq o der (es para que el crecimineto no mueva tanto la nota)
                 if(self.tipo=="Green"):     
                     self.x -=1.7
                     self.rect.left -=1.7
@@ -49,14 +54,15 @@ class note(pygame.sprite.Sprite):
                     self.x -= 1
                     self.rect.left -=1
                 if(self.tipo=="Yellow"):
-                    self.x -= 0.28
-                    self.rect.left -=0.28
+                    self.x -= 0.2
+                    self.rect.left -=0.2
                 if(self.tipo=="Blue"):
                     self.x += 0.35
                     self.rect.left +=0.35
                 if(self.tipo=="Orange"):
                     self.x += 1.2
                     self.rect.left +=1.2
+            #Descenso en y
             if(dificultad==0):
                 self.rect.top+=1
                 self.y +=1
@@ -73,6 +79,10 @@ class note(pygame.sprite.Sprite):
     #metodo que genera el movimiento
     def comportamiento(self,dificultad):
         self.__movimientos(dificultad)
+#------------------------------------------------------------------------
+
+
+#carga una cancion segun su nombre
 def load_sound(sound_filename):
     """load the sound file from the given directory"""
     sound = pygame.mixer.Sound("Sounds/"+sound_filename+".wav")
@@ -105,10 +115,13 @@ def Linea(screen,notas,x,y):
         listaNotas.append(Orange)
     return listaNotas
 #genera un movimiento en todas las notas existentes en la lista
-def movimientolista(listaNotas,screen):
+def movimientolista(listaNotas,screen,botonera):
     for i in range(0,len(listaNotas)):
         listaNotas[i].comportamiento(1)
-        if((listaNotas[i].y>90)and(listaNotas[i].y<440)):
+        if((listaNotas[i].y>90)and(listaNotas[i].y<480)):
             listaNotas[i].draw(screen)
-        if(listaNotas[i].y>440):
+        if(listaNotas[i].y>480):
             listaNotas[i].kill()
+            
+            
+    

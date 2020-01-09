@@ -1,14 +1,8 @@
 import sys, pygame
 from pygame.locals import *
 from math import *
-# Constantes
-WIDTH = 640
-HEIGHT = 480
-# Clases
-# ---------------------------------------------------------------------
-# ---------------------------------------------------------------------
-# Funciones
-# ---------------------------------------------------------------------
+
+#Carga una imagen
 def load_image(filename, transparent=False):
         try: image = pygame.image.load(filename)
         except pygame.error:
@@ -18,16 +12,17 @@ def load_image(filename, transparent=False):
                 color = image.get_at((0,0))
                 image.set_colorkey(color, RLEACCEL)
         return image
+ 
+#lee un archivo y devuelve una matriz con las lineas 
 def matriz(archivo):
     txt=str(archivo+".txt")
     cancion = open(txt,"r")
-    matris=[]
+    mat=[]
     for linea in cancion.readlines():
             aux = linea.split(",")
             lis = []
             for num in aux:
                 lis.append(int(num))
-            matris.append(lis)
+            mat.append(lis)
     cancion.close()
-    return matris
-# ---------------------------------------------------------------------
+    return mat

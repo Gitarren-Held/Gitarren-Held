@@ -3,22 +3,39 @@ from botonera import *
 from Arduino import *
 from Score import *
 from Medidor import *
-import random,pygame,time
+import random
+WIDTH = 640
+HEIGHT = 480
+color = (31,255,0)
+start_pos = (0, 440)
+end_pos = (WIDTH,440)
+start_pos2 = (0, 470)
+end_pos2 = (WIDTH,470)
+width = 1
+
 def main():
+    #carga cancion por test
+    scor = 0
     song = load_sound("test")
-    fps=0
-    cont=1
-    Guitarra = pygame.image.load("Img/Sprites/Guitarra/guitar"+str(cont)+".png")
+    #-----------------------------------------------------------------------------
+    #carga img de guitarra ( fondo donde van las notas) y luego le da un tamaño
+    Guitarra = pygame.image.load("Img/Gameplay/Guitarra.png")
     Guitarra=pygame.transform.scale(Guitarra,(1280,720))
+    #-----------------------------------------------------------------------------
+    #detalles de pantalla pygame reloj = fps 
+    reloj = pygame.time.Clock()
     screen = pygame.display.set_mode((WIDTH, HEIGHT))
-    pygame.display.set_caption("Guitarrend Held")
+    pygame.display.set_caption("Pruebas Pygame")
+    #-----------------------------------------------------------------------------
     #botonera
     botonera = BotoneraCompleta()
+    #-----------------------------------------------------------------------------
     direccion = '/dev/cu.usbmodem144401'
     lista = [0,0,0,0,0,0,0,0]
-    #score
+    #score y medidor
     score = Score(20,120)
     medidor = Medidor(500,120)
+    #-----------------------------------------------------------------------------
     #se crean dos arreglo
     MatrizLNotas=[]
     #se rellenan estos arreglos con 1000 datos (deberia cargar las lineas de la cancion)
@@ -26,34 +43,56 @@ def main():
     MatrizNotas = matriz("Code/test-song1")
     #for i in MatrizNotas:
         #print(i)
-    clock = pygame.time.Clock() 
     for i in range(0,len(MatrizNotas)):
         #crea las lineas de "notas" 
         # i comparar i+1 mismo valor 
-        #MatrizNotas[i]--> Fila de la matriz
         LineaN = Linea(screen,MatrizNotas[i],150,(0-(80*i)))
-        MatrizLNotas.append(LineaN)   
-    #song.play()
+        MatrizLNotas.append(LineaN)
+    #termina de cargar la cancion en memoria
+    #-----------------------------------------------------------------------------
+    #comienza el loop y por lo tanto la cancion se ejecuta
+    song.play()
     while True:
+        #input arduino (error de lag)
         #inp = Leer(direccion)
+        #-----------------------------------------------------------------------------
+        #ajustes de pygame(fps,fondo,posiciona la guitarra)
+        reloj.tick(60)
         screen.fill([0,0,0])
         screen.blit(Guitarra,(-315,-180))
+        #-----------------------------------------------------------------------------
+        #eventos de pygame,se ejecutan el precionar teclas
         for eventos in pygame.event.get():
             if eventos.type == pygame.KEYDOWN:
-                # Resuelve que ha sido una tecla de flecha, por lo que
+            # Resuelve que ha sido una tecla de flecha, por lo que
             # ajusta la velocidad.
                 if eventos.key == pygame.K_z:
+                    for i in range(0,len(MatrizLNotas)):
+                        if(botonera[0].Active_collider(MatrizLNotas[i],scor)):
+                           scor+=1
                     lista[0]=1
                 if eventos.key == pygame.K_x:
+                    for i in range(0,len(MatrizLNotas)):
+                       if(botonera[1].Active_collider(MatrizLNotas[i],scor)):
+                           scor+=1
                     lista[1]=1
                 if eventos.key == pygame.K_c:
+                    for i in range(0,len(MatrizLNotas)):
+                        if(botonera[2].Active_collider(MatrizLNotas[i],scor)):
+                           scor+=1
                     lista[2]=1
                 if eventos.key == pygame.K_v:
+                    for i in range(0,len(MatrizLNotas)):
+                        if(botonera[3].Active_collider(MatrizLNotas[i],scor)):
+                           scor+=1
                     lista[3]=1
                 if eventos.key == pygame.K_b:
+                    for i in range(0,len(MatrizLNotas)):
+                       if(botonera[4].Active_collider(MatrizLNotas[i],scor)):
+                           scor+=1
                     lista[4]=1
             if eventos.type == pygame.KEYUP:
-                # Resuelve que ha sido una tecla de flecha, por lo que
+            # Resuelve que ha sido una tecla de flecha, por lo que
             # ajusta la velocidad.
                 if eventos.key == pygame.K_z:
                     lista[0]=0
@@ -67,30 +106,22 @@ def main():
                     lista[4]=0
             if eventos.type == QUIT:
                 sys.exit(0) 
+        #-----------------------------------------------------------------------------
+        #ejecuta comportaminetobotomnera con la lista creada a partir del teclado y luego la dibuja
         comportamientoBotonera(botonera,lista)
         drawAll(botonera,screen)
+        #-----------------------------------------------------------------------------
         #for que genera el movimiento en las notas segun cuantas existan en la cancion
         for i in range(0,len(MatrizNotas)):
-            movimientolista(MatrizLNotas[i],screen)
-        score.draw(screen,0)
+            movimientolista(MatrizLNotas[i],screen,botonera)
         medidor.evaluar(101)
+        print(scor)
+        score.draw(screen,scor)
         medidor.draw(screen,101)
+        pygame.draw.line(screen, color, start_pos, end_pos, width)
+        pygame.draw.line(screen, color, start_pos2, end_pos2, width)
         pygame.display.flip()
         pygame.display.update()
-        clock.tick(60)
-        #Cambio de Screen de la guitarra 
-        if fps>3:    
-            if cont<16:
-                cont+=1
-                Guitarra = pygame.image.load("Img/Sprites/Guitarra/guitar"+str(cont)+".png")
-                Guitarra=pygame.transform.scale(Guitarra,(1280,720))
-            else:
-                cont=1
-                Guitarra = pygame.image.load("Img/Sprites/Guitarra/guitar"+str(cont)+".png")
-                Guitarra=pygame.transform.scale(Guitarra,(1280,720))
-            fps=0
-        fps+=1
-    pygame.quit()
     return 0 
 if __name__ == '__main__':
     pygame.init()
