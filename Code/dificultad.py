@@ -5,6 +5,7 @@ from pygame.locals import *
 import utils
 from utils import *
 from abrirArchivos import *
+
 #Funciones privadas:
 def easy():
     dificultad = "easy"
