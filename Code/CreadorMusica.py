@@ -7,7 +7,7 @@ import sys, select, os
 
 listaInteprete = [0,0,0,0,0,0,0,0]
 lista = [0,0,0,0,0,0,0,0]
-arduino = serial.Serial(port='/dev/cu.usbmodem142301', baudrate=9600)
+arduino = serial.Serial(port='/dev/cu.usbmodem142401', baudrate=9600)
 pantalla = pygame.display.set_mode((500,100))
 
 def inputArduino():
