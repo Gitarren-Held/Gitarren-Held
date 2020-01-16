@@ -13,13 +13,13 @@ start_pos2 = (0, 470)
 end_pos2 = (WIDTH,470)
 width = 1
 
-def main():
+def main2():
     #carga cancion por test
     scor = 0
-    song = load_sound("test")
+    #song = load_sound("test")
     #-----------------------------------------------------------------------------
     #carga img de guitarra ( fondo donde van las notas) y luego le da un tamaño
-    Guitarra = pygame.image.load("Img/Gameplay/Guitarra.png")
+    Guitarra = pygame.image.load("Guitarra.png")
     Guitarra=pygame.transform.scale(Guitarra,(1280,720))
     #-----------------------------------------------------------------------------
     #detalles de pantalla pygame reloj = fps 
@@ -123,6 +123,3 @@ def main():
         pygame.display.flip()
         pygame.display.update()
     return 0 
-if __name__ == '__main__':
-    pygame.init()
-    main()
