@@ -1,6 +1,15 @@
 import pygame
 from note import *
+import time
 
+WIDTH = 640
+HEIGHT = 480
+color = (31,255,0)
+start_pos = (0, 420)
+end_pos = (WIDTH,420)
+start_pos2 = (0, 440)
+end_pos2 = (WIDTH,440)
+width = 1
 #clase botonera "OJO " solo carga un 'boton'
 class Botonera(pygame.sprite.Sprite):
     #parametros x e y (posicion), tipo = Green,Blue etc...
@@ -8,8 +17,8 @@ class Botonera(pygame.sprite.Sprite):
         self.image = load_image("Img/Botonera/"+tipo+".png", True)
         self.image = pygame.transform.scale(self.image,(100,56))
         self.rect = self.image.get_rect()
-        self.rect.centerx = x 
-        self.rect.centery = y 
+        self.rect.centerx = x/2 
+        self.rect.centery = y/2
         self.rect.top = y
         self.rect.left = x
         self.x  = x
@@ -18,7 +27,18 @@ class Botonera(pygame.sprite.Sprite):
     #dibuja la clase , surface = pantalla donde se dibuja   
     def draw(self,surface):
         surface.blit(self.image,(self.x,self.y))
-    
+    def is_collided_with(self, sprite):
+        return self.rect.colliderect(sprite.rect)
+    def Active_collider(self,sprite,score,screen):
+        #print(len(sprite))
+        for i in range(0,len(sprite)):
+            if((self.is_collided_with(sprite[i]))and(self.tipo==sprite[i].tipo)and(sprite[i].y>439)and(sprite[i].y<471)): 
+                sprite[i].kill()
+                self.image = pygame.transform.scale(load_image("Img/Botonera/Fire.png", True),(100,56))
+                screen.blit(self.image,(self.x,self.y))
+                return True
+        return False
+        
     #determina el estado del 'boton' dependiendo del input del usuario
     #1 = activo, num = arreglo[posicion](0,0,0,0,0,0)
     def __On(self,num,slayer):
@@ -46,7 +66,7 @@ def BotoneraCompleta():
     bot.append(botO)
     return bot
 #Evalua el comportamiento de cada boton segun el input
-def comportamientoBotonera(bot,Input):
+def comportamientoBotonera(bot,Input,screen):
     bot[0].comportamiento(Input[0],Input[7])
     bot[1].comportamiento(Input[1],Input[7])
     bot[2].comportamiento(Input[2],Input[7])

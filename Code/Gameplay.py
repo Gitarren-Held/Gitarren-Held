@@ -4,11 +4,19 @@ from Arduino import *
 from Score import *
 from Medidor import *
 import random
+
 WIDTH = 640
 HEIGHT = 480
+color = (255,0,0)
+start_pos = (0, 440)
+end_pos = (WIDTH,440)
+start_pos2 = (0, 470)
+end_pos2 = (WIDTH,470)
+width = 1
 
 def main():
     #carga cancion por test
+    scor = 0
     song = load_sound("test")
     #-----------------------------------------------------------------------------
     #carga img de guitarra ( fondo donde van las notas) y luego le da un tamaño
@@ -23,7 +31,7 @@ def main():
     #botonera
     botonera = BotoneraCompleta()
     #-----------------------------------------------------------------------------
-    direccion = '/dev/cu.usbmodem144401'
+    direccion = '/dev/cu.usbmodem142401'
     lista = [0,0,0,0,0,0,0,0]
     #score y medidor
     score = Score(20,120)
@@ -44,30 +52,43 @@ def main():
     #termina de cargar la cancion en memoria
     #-----------------------------------------------------------------------------
     #comienza el loop y por lo tanto la cancion se ejecuta
-    song.play()
+    #song.play()
     while True:
-        #input arduino (error de lag)
-        #inp = Leer(direccion)
+        #input arduino (error de lag),(cambiar tiempo de lectura)
+        #inp = Leer(direccion)in   s
         #-----------------------------------------------------------------------------
         #ajustes de pygame(fps,fondo,posiciona la guitarra)
         reloj.tick(60)
         screen.fill([0,0,0])
         screen.blit(Guitarra,(-315,-180))
         #-----------------------------------------------------------------------------
-        #eventos de pygame,se ejecutan el precionar teclas
+        #eventos de pygame,se ejecutan el presionar teclas
         for eventos in pygame.event.get():
             if eventos.type == pygame.KEYDOWN:
-            # Resuelve que ha sido una tecla de flecha, por lo que
-            # ajusta la velocidad.
                 if eventos.key == pygame.K_z:
+                    for i in range(0,len(MatrizLNotas)):
+                        if(botonera[0].Active_collider(MatrizLNotas[i],scor,screen)):
+                           scor+=1
                     lista[0]=1
                 if eventos.key == pygame.K_x:
+                    for i in range(0,len(MatrizLNotas)):
+                       if(botonera[1].Active_collider(MatrizLNotas[i],scor,screen)):
+                           scor+=1
                     lista[1]=1
                 if eventos.key == pygame.K_c:
+                    for i in range(0,len(MatrizLNotas)):
+                        if(botonera[2].Active_collider(MatrizLNotas[i],scor,screen)):
+                           scor+=1
                     lista[2]=1
                 if eventos.key == pygame.K_v:
+                    for i in range(0,len(MatrizLNotas)):
+                        if(botonera[3].Active_collider(MatrizLNotas[i],scor,screen)):
+                           scor+=1
                     lista[3]=1
                 if eventos.key == pygame.K_b:
+                    for i in range(0,len(MatrizLNotas)):
+                       if(botonera[4].Active_collider(MatrizLNotas[i],scor,screen)):
+                           scor+=1
                     lista[4]=1
             if eventos.type == pygame.KEYUP:
             # Resuelve que ha sido una tecla de flecha, por lo que
@@ -86,18 +107,20 @@ def main():
                 sys.exit(0) 
         #-----------------------------------------------------------------------------
         #ejecuta comportaminetobotomnera con la lista creada a partir del teclado y luego la dibuja
-        comportamientoBotonera(botonera,lista)
+        comportamientoBotonera(botonera,lista,screen)
         drawAll(botonera,screen)
         #-----------------------------------------------------------------------------
         #for que genera el movimiento en las notas segun cuantas existan en la cancion
         for i in range(0,len(MatrizNotas)):
-            movimientolista(MatrizLNotas[i],screen)
-        score.draw(screen,0)
+            movimientolista(MatrizLNotas[i],screen,botonera)
         medidor.evaluar(101)
+        score.draw(screen,scor)
         medidor.draw(screen,101)
+        #pygame.draw.line(screen, color, start_pos, end_pos, width)
+        #pygame.draw.line(screen, color, start_pos2, end_pos2, width)
         pygame.display.flip()
         pygame.display.update()
     return 0 
 if __name__ == '__main__':
     pygame.init()
-    main()
+    main()      
