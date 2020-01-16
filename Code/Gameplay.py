@@ -4,13 +4,6 @@ from Arduino import *
 from Score import *
 from Medidor import *
 import random
-import pygame,sys
-from pygame.locals import *
-from utils import *
-from dificultad import *
-from modoSolo import *
-from classMenu import *
-
 WIDTH = 640
 HEIGHT = 480
 color = (31,255,0)
@@ -20,13 +13,13 @@ start_pos2 = (0, 470)
 end_pos2 = (WIDTH,470)
 width = 1
 
-def main2(cancion):
+def main():
     #carga cancion por test
     scor = 0
     song = load_sound("test")
     #-----------------------------------------------------------------------------
     #carga img de guitarra ( fondo donde van las notas) y luego le da un tamaño
-    Guitarra = pygame.image.load("Guitarra.png")
+    Guitarra = pygame.image.load("Img/Gameplay/Guitarra.png")
     Guitarra=pygame.transform.scale(Guitarra,(1280,720))
     #-----------------------------------------------------------------------------
     #detalles de pantalla pygame reloj = fps 
@@ -132,4 +125,4 @@ def main2(cancion):
     return 0 
 if __name__ == '__main__':
     pygame.init()
-    main2("hola")
+    main()
