@@ -11,16 +11,19 @@ import time, datetime
 WIDTH = 640
 HEIGHT = 480
 color = (255,0,0)
-start_pos = (0, 440)
-end_pos = (WIDTH,440)
+start_pos = (0, 460)
+end_pos = (WIDTH,460)
 start_pos2 = (0, 470)
 end_pos2 = (WIDTH,470)
 width = 1
 
+
 def main():
     StarPower = False
+    game=True
+    Cantidad_notas=0
+    Dibuj = True
     #carga cancion por test
-    
     scor = 0
     song = load_sound("test")
     #-----------------------------------------------------------------------------
@@ -54,11 +57,13 @@ def main():
         # i comparar i+1 mismo valor 
         LineaN = Linea(screen,MatrizNotas[i],150,(0-(80*i)))
         MatrizLNotas.append(LineaN)
+    #---------
+    cantidadNotasTotales = len(MatrizNotas) * len(MatrizLNotas) 
     #termina de cargar la cancion en memoria
     #-----------------------------------------------------------------------------
     #comienza el loop y por lo tanto la cancion se ejecuta
     #song.play()
-    while True:        
+    while (game):        
         #input arduino (error de lag),(cambiar tiempo de lectura)
         #inp = Leer(direccion)in   s
         #-----------------------------------------------------------------------------
@@ -69,50 +74,53 @@ def main():
         #-----------------------------------------------------------------------------
         #eventos de pygame,se ejecutan el presionar teclas
         for eventos in pygame.event.get():
-            if eventos.type == pygame.KEYDOWN:
-                if eventos.key == pygame.K_z:
-                    for i in range(0,len(MatrizLNotas)):
-                        if(botonera[0].Active_collider(MatrizLNotas[i],scor,screen)):
-                           scor+=1
-                    lista[0]=1
-                if eventos.key == pygame.K_x:
-                    for i in range(0,len(MatrizLNotas)):
-                       if(botonera[1].Active_collider(MatrizLNotas[i],scor,screen)):
-                           scor+=1
-                    lista[1]=1
-                if eventos.key == pygame.K_c:
-                    for i in range(0,len(MatrizLNotas)):
-                        if(botonera[2].Active_collider(MatrizLNotas[i],scor,screen)):
-                           scor+=1
-                    lista[2]=1
-                if eventos.key == pygame.K_v:
-                    for i in range(0,len(MatrizLNotas)):
-                        if(botonera[3].Active_collider(MatrizLNotas[i],scor,screen)):
-                           scor+=1
-                    lista[3]=1
-                if eventos.key == pygame.K_b:
-                    for i in range(0,len(MatrizLNotas)):
-                       if(botonera[4].Active_collider(MatrizLNotas[i],scor,screen)):
-                           scor+=1
-                    lista[4]=1
-                if eventos.key == pygame.K_q:
-                    StarPower = True      
-                if eventos.key == pygame.K_a:
-                    StarPower = False
-            if eventos.type == pygame.KEYUP:
-            # Resuelve que ha sido una tecla de flecha, por lo que
-            # ajusta la velocidad.
-                if eventos.key == pygame.K_z:
-                    lista[0]=0
-                if eventos.key == pygame.K_x:
-                    lista[1]=0
-                if eventos.key == pygame.K_c:
-                    lista[2]=0
-                if eventos.key == pygame.K_v:
-                    lista[3]=0
-                if eventos.key == pygame.K_b:
-                    lista[4]=0
-            if eventos.type == QUIT:
+            if(Dibuj):
+                if eventos.type == pygame.KEYDOWN:
+                    if eventos.key == pygame.K_z:
+                        for i in range(0,len(MatrizLNotas)):
+                            if(botonera[0].Active_collider(MatrizLNotas[i],scor,screen)):
+                                scor+=1
+                        lista[0]=1
+                    if eventos.key == pygame.K_x:
+                        for i in range(0,len(MatrizLNotas)):
+                            if(botonera[1].Active_collider(MatrizLNotas[i],scor,screen)):
+                                scor+=1
+                            lista[1]=1
+                    if eventos.key == pygame.K_c:
+                        for i in range(0,len(MatrizLNotas)):
+                            if(botonera[2].Active_collider(MatrizLNotas[i],scor,screen)):
+                                scor+=1
+                            lista[2]=1
+                    if eventos.key == pygame.K_v:
+                        for i in range(0,len(MatrizLNotas)):
+                            if(botonera[3].Active_collider(MatrizLNotas[i],scor,screen)):
+                                scor+=1
+                            lista[3]=1
+                    if eventos.key == pygame.K_b:
+                        for i in range(0,len(MatrizLNotas)):
+                            if(botonera[4].Active_collider(MatrizLNotas[i],scor,screen)):
+                               scor+=1
+                            lista[4]=1
+                    if eventos.key == pygame.K_q:
+                        StarPower = True      
+                    if eventos.key == pygame.K_a:
+                        StarPower = False
+                    if eventos.key == pygame.K_p:
+                        game = False
+                if eventos.type == pygame.KEYUP:
+                # Resuelve que ha sido una tecla de flecha, por lo que
+                # ajusta la velocidad.
+                    if eventos.key == pygame.K_z:
+                        lista[0]=0
+                    if eventos.key == pygame.K_x:
+                        lista[1]=0
+                    if eventos.key == pygame.K_c:
+                        lista[2]=0
+                    if eventos.key == pygame.K_v:
+                        lista[3]=0
+                    if eventos.key == pygame.K_b:
+                        lista[4]=0
+            if eventos.type == QUIT:     
                 sys.exit(0) 
         #-----------------------------------------------------------------------------
         #ejecuta comportaminetobotomnera con la lista creada a partir del teclado y luego la dibuja
@@ -121,15 +129,34 @@ def main():
         #-----------------------------------------------------------------------------
         #for que genera el movimiento en las notas segun cuantas existan en la cancion
         for i in range(0,len(MatrizNotas)):
-            movimientolista(MatrizLNotas[i],screen,botonera,StarPower)
+           Cantidad_notas = movimientolista(MatrizLNotas[i],screen,botonera,StarPower,Cantidad_notas,Dibuj)
         medidor.evaluar(101)
         score.draw(screen,scor)
         medidor.draw(screen,101)
-        #pygame.draw.line(screen, color, start_pos, end_pos, width)
+        #Fin
+        if(Cantidad_notas > 5):
+                Dibuj = False;
+                fondo = pygame.image.load("Img/Gameplay/fin.png")
+                fondo=pygame.transform.scale(fondo,(1280,720))
+                screen.blit(fondo,(0,0))
+                #calculos
+                por = "{0:.4f}".format((scor * 100)/cantidadNotasTotales)
+                texto = "Completado :"+str(por)+"%"
+                aciertos = "Aciertos :"+str(scor)
+                errores = "Errores :"+str(cantidadNotasTotales-scor)
+                fuente = pygame.font.Font(None, 60)
+                texto1 = fuente.render(texto, 0, (255, 0, 0))
+                texto2 = fuente.render(aciertos, 0, (255, 0, 0))
+                texto3 = fuente.render(errores, 0, (255, 0, 0))
+                screen.blit(texto1, (110,120))
+                screen.blit(texto2, (110,220))
+                screen.blit(texto3, (110,340))
         #pygame.draw.line(screen, color, start_pos2, end_pos2, width)
         pygame.display.flip()
         pygame.display.update()
-    return 0 
+        
+    return 0
+
 if __name__ == '__main__':
     pygame.init()
     main()      

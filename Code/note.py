@@ -126,19 +126,21 @@ def Linea(screen,notas,x,y):
         listaNotas.append(Orange)
     return listaNotas
 #genera un movimiento en todas las notas existentes en la lista
-def movimientolista(listaNotas,screen,botonera,StarPower):
+def movimientolista(listaNotas,screen,botonera,StarPower,Cantidad_notas,Dibuj):
     for i in range(0,len(listaNotas)):
         listaNotas[i].comportamiento(1)
-        if((listaNotas[i].y>90)and(listaNotas[i].y<480)):
+        if((listaNotas[i].y>90)and(listaNotas[i].y<480)and(Dibuj)):
             if(StarPower):
                 listaNotas[i].StarPower()
             else:
                 listaNotas[i].image = load_image("Img/Notas/"+listaNotas[i].tipo+".png", True)
                 listaNotas[i].image = pygame.transform.scale(listaNotas[i].image,(listaNotas[i].TamX,listaNotas[i].TamY))
             listaNotas[i].draw(screen)
-        if(listaNotas[i].y>480):
+        if(listaNotas[i].y==460):
             listaNotas[i].kill()
-            
+            Cantidad_notas = Cantidad_notas+1
+    return Cantidad_notas
+        
 
         
        
