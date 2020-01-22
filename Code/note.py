@@ -27,6 +27,7 @@ class note(pygame.sprite.Sprite):
         self.TamY=8
         self.image = pygame.transform.scale(self.image,(self.TamX,self.TamY))
         self.tipo =tipo
+        self.exist = False
     #dibuja la nota en pantalla 
     def draw(self, surface):
         start_pos = (0, self.y)
@@ -35,6 +36,11 @@ class note(pygame.sprite.Sprite):
         surface.blit(self.image, (self.x, self.y))  
     def is_collided_with(self, sprite):
         return self.rect.colliderect(sprite.rect)
+    
+    #Star power : cambia imagenes de las notas por las notas con starpower
+    def StarPower(self):
+        self.image = load_image("Img/Notas/"+self.tipo+"StarPower.png", True)
+        self.image = pygame.transform.scale(self.image,(self.TamX,self.TamY))
     #movimiento : mueve la nota hasta el limite de pantalla
     def __movimientos(self,dificultad):
         if((self.y < HEIGHT)):
@@ -96,32 +102,47 @@ def Linea(screen,notas,x,y):
     if(notas[0]==1):
         Green = note(x+130,y,"Green")
         Green.tipo = "Green"
+        Green.exist = True
         listaNotas.append(Green)
     if(notas[1]==1):
         Red = note(x+150,y,"Red")
+        Red.exist = True
         Red.tipo = "Red"
         listaNotas.append(Red)
     if(notas[2]==1):
         Yellow = note(x+165,y,"Yellow")
+        Yellow.exist = True
         Yellow.tipo = "Yellow"
         listaNotas.append(Yellow)
     if(notas[3]==1):
         Blue = note(x+190,y,"Blue")
+        Blue.exist = True
         Blue.tipo = "Blue"
         listaNotas.append(Blue)
     if(notas[4]==1):
         Orange = note(x+210,y,"Orange")
+        Orange.exist = True
         Orange.tipo = "Orange"
         listaNotas.append(Orange)
     return listaNotas
 #genera un movimiento en todas las notas existentes en la lista
-def movimientolista(listaNotas,screen,botonera):
+def movimientolista(listaNotas,screen,botonera,StarPower):
     for i in range(0,len(listaNotas)):
         listaNotas[i].comportamiento(1)
         if((listaNotas[i].y>90)and(listaNotas[i].y<480)):
+            if(StarPower):
+                listaNotas[i].StarPower()
+            else:
+                listaNotas[i].image = load_image("Img/Notas/"+listaNotas[i].tipo+".png", True)
+                listaNotas[i].image = pygame.transform.scale(listaNotas[i].image,(listaNotas[i].TamX,listaNotas[i].TamY))
             listaNotas[i].draw(screen)
         if(listaNotas[i].y>480):
             listaNotas[i].kill()
             
+
+        
+       
+
+
             
     

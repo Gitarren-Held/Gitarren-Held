@@ -4,6 +4,9 @@ from Arduino import *
 from Score import *
 from Medidor import *
 import random
+import time, datetime
+
+
 
 WIDTH = 640
 HEIGHT = 480
@@ -15,7 +18,9 @@ end_pos2 = (WIDTH,470)
 width = 1
 
 def main():
+    StarPower = False
     #carga cancion por test
+    
     scor = 0
     song = load_sound("test")
     #-----------------------------------------------------------------------------
@@ -53,7 +58,7 @@ def main():
     #-----------------------------------------------------------------------------
     #comienza el loop y por lo tanto la cancion se ejecuta
     #song.play()
-    while True:
+    while True:        
         #input arduino (error de lag),(cambiar tiempo de lectura)
         #inp = Leer(direccion)in   s
         #-----------------------------------------------------------------------------
@@ -90,6 +95,10 @@ def main():
                        if(botonera[4].Active_collider(MatrizLNotas[i],scor,screen)):
                            scor+=1
                     lista[4]=1
+                if eventos.key == pygame.K_q:
+                    StarPower = True      
+                if eventos.key == pygame.K_a:
+                    StarPower = False
             if eventos.type == pygame.KEYUP:
             # Resuelve que ha sido una tecla de flecha, por lo que
             # ajusta la velocidad.
@@ -112,7 +121,7 @@ def main():
         #-----------------------------------------------------------------------------
         #for que genera el movimiento en las notas segun cuantas existan en la cancion
         for i in range(0,len(MatrizNotas)):
-            movimientolista(MatrizLNotas[i],screen,botonera)
+            movimientolista(MatrizLNotas[i],screen,botonera,StarPower)
         medidor.evaluar(101)
         score.draw(screen,scor)
         medidor.draw(screen,101)
