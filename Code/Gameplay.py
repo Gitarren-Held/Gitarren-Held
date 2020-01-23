@@ -18,7 +18,7 @@ end_pos2 = (WIDTH,470)
 width = 1
 
 
-def main():
+def main2():
     StarPower = False
     game=True
     Cantidad_notas=0
@@ -157,6 +157,6 @@ def main():
         
     return 0
 
-if __name__ == '__main__':
-    pygame.init()
-    main()      
+if __name__ == '__main2__':
+    #pygame.init()
+    main2()      
