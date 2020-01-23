@@ -4,6 +4,7 @@ import time
 import os
 from pygame.locals import *
 from Api import *
+from menu import *
 import random
 WIDTH = 640
 HEIGHT = 480
