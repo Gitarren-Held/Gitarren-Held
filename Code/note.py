@@ -12,6 +12,7 @@ color = (31,255,0)
 start_pos = (0, 420)
 end_pos = (WIDTH,420)
 width = 1
+
 #Clase que almacena la "nota" en el constructor cuenta con un "x" e "y" que son la posicion donde partiran esta nota 
 class note(pygame.sprite.Sprite):
     def __init__(self,x,y,tipo):
@@ -87,8 +88,6 @@ class note(pygame.sprite.Sprite):
     def comportamiento(self,dificultad):
         self.__movimientos(dificultad)
 #------------------------------------------------------------------------
-
-
 #carga una cancion segun su nombre
 def load_sound(sound_filename):
     """load the sound file from the given directory"""

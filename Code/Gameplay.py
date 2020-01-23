@@ -14,7 +14,10 @@ end_pos = (WIDTH,460)
 start_pos2 = (0, 470)
 end_pos2 = (WIDTH,470)
 width = 1
-
+def load_sound(sound_filename):
+    """load the sound file from the given directory"""
+    sound = pygame.mixer.Sound("Sounds/"+sound_filename+".wav")
+    return sound
 
 def GamePlayStart(song):
     StarPower = False
@@ -32,7 +35,7 @@ def GamePlayStart(song):
     #detalles de pantalla pygame reloj = fps 
     reloj = pygame.time.Clock()
     screen = pygame.display.set_mode((WIDTH, HEIGHT))
-    pygame.display.set_caption("Pruebas Pygame")
+    pygame.display.set_caption("Corazón Espinado - Easy ")
     #-----------------------------------------------------------------------------
     #botonera
     botonera = BotoneraCompleta()
@@ -47,7 +50,7 @@ def GamePlayStart(song):
     MatrizLNotas=[]
     #se rellenan estos arreglos con 1000 datos (deberia cargar las lineas de la cancion)
     #crea cada vez una linea ( inputArduino) nueva 
-    MatrizNotas = matriz("Code/test-song1")
+    MatrizNotas = matriz("cancion1")
     #for i in MatrizNotas:
         #print(i)
     for i in range(0,len(MatrizNotas)):
