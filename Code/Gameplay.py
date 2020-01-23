@@ -156,7 +156,3 @@ def main2():
         pygame.display.update()
         
     return 0
-
-if __name__ == '__main2__':
-    #pygame.init()
-    main2()      

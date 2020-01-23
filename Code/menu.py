@@ -99,7 +99,7 @@ def play_function(difficulty, font, test=False):
         #detalles de pantalla pygame reloj = fps 
         reloj = pygame.time.Clock()
         screen = pygame.display.set_mode((WIDTH, HEIGHT))
-        pygame.display.set_caption("Pruebas Pygame")
+        pygame.display.set_caption("")
         #-----------------------------------------------------------------------------
         #botonera
         botonera = BotoneraCompleta()
@@ -220,7 +220,7 @@ def play_function(difficulty, font, test=False):
             pygame.display.flip()
             pygame.display.update()
             
-        return 0 
+        return 0
     elif difficulty == 'MEDIUM':
         f = font.render('Playing as a kid (medium)', 1, COLOR_WHITE)
     elif difficulty == 'HARD':
