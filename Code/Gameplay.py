@@ -6,8 +6,6 @@ from Medidor import *
 import random
 import time, datetime
 
-
-
 WIDTH = 640
 HEIGHT = 480
 color = (255,0,0)
@@ -18,14 +16,14 @@ end_pos2 = (WIDTH,470)
 width = 1
 
 
-def main2():
+def GamePlayStart(song):
     StarPower = False
     game=True
     Cantidad_notas=0
     Dibuj = True
     #carga cancion por test
     scor = 0
-    song = load_sound("test")
+    song = load_sound(song)
     #-----------------------------------------------------------------------------
     #carga img de guitarra ( fondo donde van las notas) y luego le da un tamaño
     Guitarra = pygame.image.load("Img/Gameplay/Guitarra.png")
@@ -153,6 +151,5 @@ def main2():
                 screen.blit(texto3, (110,340))
         #pygame.draw.line(screen, color, start_pos2, end_pos2, width)
         pygame.display.flip()
-        pygame.display.update()
-        
+        pygame.display.update()  
     return 0
