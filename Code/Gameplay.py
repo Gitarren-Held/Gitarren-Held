@@ -51,6 +51,7 @@ def GamePlayStart(song):
     #se rellenan estos arreglos con 1000 datos (deberia cargar las lineas de la cancion)
     #crea cada vez una linea ( inputArduino) nueva 
     MatrizNotas = matriz("cancion1")
+    
     #for i in MatrizNotas:
         #print(i)
     for i in range(0,len(MatrizNotas)):
