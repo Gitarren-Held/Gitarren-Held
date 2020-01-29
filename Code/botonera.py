@@ -17,9 +17,9 @@ class Botonera(pygame.sprite.Sprite):
         self.image = load_image("Img/Botonera/"+tipo+".png", True)
         self.image = pygame.transform.scale(self.image,(100,56))
         self.rect = self.image.get_rect()
-        self.rect.centerx = x/2 
-        self.rect.centery = y/2
-        self.rect.top = y
+        self.rect.centerx = x/2
+        self.rect.centery = y/2  + 35
+        self.rect.top = y+20
         self.rect.left = x
         self.x  = x
         self.y  = y
@@ -34,10 +34,12 @@ class Botonera(pygame.sprite.Sprite):
         for i in range(0,len(sprite)):
             if((self.is_collided_with(sprite[i]))and(self.tipo==sprite[i].tipo)and(sprite[i].y>439)and(sprite[i].y<471)): 
                 sprite[i].kill()
-                self.image = pygame.transform.scale(load_image("Img/Botonera/Fire.png", True),(100,56))
+                sprite[i].end=True
+                self.image = pygame.transform.scale(load_image("Img/Botonera/"+self.tipo+"OnFire.png", True),(100,56))
                 screen.blit(self.image,(self.x,self.y))
-                return True
-        return False
+                
+                return (True,sprite)
+        return (False,sprite)
         
     #determina el estado del 'boton' dependiendo del input del usuario
     #1 = activo, num = arreglo[posicion](0,0,0,0,0,0)
