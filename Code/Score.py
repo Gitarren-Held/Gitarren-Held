@@ -24,16 +24,16 @@ class Score(pygame.sprite.Sprite):
             texto3 = fuente.render(mul, 0, (0, 255, 255))
             surface.blit(self.image,(self.x,self.y))
             surface.blit(texto1, (35, 125))
-            surface.blit(texto2, (60, 125))
-            surface.blit(texto3, (75, 125))
-            surface.blit(notseguidas,(45,400))
+            surface.blit(texto2, (75, 125))
+            surface.blit(texto3, (90, 125))
+            surface.blit(notseguidas,(45,300))
             
         else:
             texto = str(score)
             texto1 = fuente.render(texto, 0, (255, 255, 255))
             surface.blit(self.image,(self.x,self.y))
             surface.blit(texto1, (45, 125))
-            surface.blit(notseguidas,(45,200))
+            surface.blit(notseguidas,(45,300))
             
         
         #falta agregar metodo que dibuje y sume puntaje

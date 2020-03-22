@@ -29,7 +29,7 @@ class note(pygame.sprite.Sprite):
         self.image = pygame.transform.scale(self.image,(self.TamX,self.TamY))
         self.tipo =tipo
         self.exist = False
-        self.bonus = random.randrange(20)
+        self.bonus = random.randrange(10)
         self.end = False
     #dibuja la nota en pantalla 
     def draw(self, surface):

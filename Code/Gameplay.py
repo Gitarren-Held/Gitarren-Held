@@ -19,10 +19,10 @@ width = 1
 shape_color = (40, 210, 250)
 
 
-def GamePlayStart():
+def GamePlayStart(screen):
     cadenaNotas = 0
     multiplicador=1
-    cantStarPower=10
+    cantStarPower=50
     isActiveStartPower = False
     EndStartPower=0
     StarPower = False
@@ -31,7 +31,7 @@ def GamePlayStart():
     Dibuj = True
     #carga cancion por test
     scor = 0
-    song = load_sound("test")
+#    song = load_sound("test")
     #-----------------------------------------------------------------------------
     #carga img de guitarra ( fondo donde van las notas) y luego le da un tamaño
     Guitarra = pygame.image.load("Img/Gameplay/Guitarra.png")
@@ -39,7 +39,7 @@ def GamePlayStart():
     #-----------------------------------------------------------------------------
     #detalles de pantalla pygame reloj = fps 
     reloj = pygame.time.Clock()
-    screen = pygame.display.set_mode((WIDTH, HEIGHT))
+    #screen = pygame.display.set_mode((WIDTH, HEIGHT))
     pygame.display.set_caption("Pruebas Pygame")
     #-----------------------------------------------------------------------------
     #botonera
@@ -311,8 +311,6 @@ def GamePlayStart():
             StarPower = False    
         for i in range(0,len(MatrizNotas)):
             (Cantidad_notas,cantStarPower) = movimientolista(MatrizLNotas[i],screen,botonera,StarPower,Cantidad_notas,Dibuj,cantStarPower,cadenaNotas)
-            
-
         medidor.evaluar(101)
         score.draw(screen,scor,multiplicador,cadenaNotas)
         medidor.draw(screen,101)
@@ -344,6 +342,6 @@ def GamePlayStart():
         
     return 0
 
-if __name__ == '__main__':
-    pygame.init()
-    GamePlayStart()      
+#if __name__ == '__main__':
+#    pygame.init()
+ #   GamePlayStart()      
