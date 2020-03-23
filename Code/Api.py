@@ -22,8 +22,7 @@ def matriz(archivo):
             aux = linea.split(",")
             lis = []
             for num in aux:
-                s=int(num)   
-                lis.append(s)
+                lis.append(int(num))
             mat.append(lis)
     cancion.close()
     return mat
