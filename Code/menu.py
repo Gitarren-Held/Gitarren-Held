@@ -14,6 +14,8 @@ from Gameplay import *
 import note
 import random
 import time, datetime
+
+
 # -----------------------------------------------------------------------------
 # Constants and global variables
 # -----------------------------------------------------------------------------
@@ -33,12 +35,16 @@ main_menu = None
 surface = None
 WIDTH = 640
 HEIGHT = 480
-color = (255,0,0)
 start_pos = (0, 460)
 end_pos = (WIDTH,460)
 start_pos2 = (0, 470)
 end_pos2 = (WIDTH,470)
 width = 1
+surface = pygame.display.set_mode(WINDOW_SIZE)
+color = (0,0,0)
+shape_color = (40, 210, 250)
+
+
 # -----------------------------------------------------------------------------
 # Methods
 # -----------------------------------------------------------------------------
@@ -83,9 +89,12 @@ def play_function(difficulty, font, test=False):
     # Define globals
     global main_menu
     global clock
+    
 
     if difficulty == 'EASY':
-        GamePlayStart("test")
+        f = font.render('Playing as a kid (easy)', 1, COLOR_WHITE)
+        cancion = "Code/test-song1"
+        Gameplay(cancion)
     elif difficulty == 'MEDIUM':
         f = font.render('Playing as a kid (medium)', 1, COLOR_WHITE)
     elif difficulty == 'HARD':
@@ -163,8 +172,7 @@ def main(test=False):
     pygame.init()
     os.environ['SDL_VIDEO_CENTERED'] = '1'
 
-    # Create pygame screen and objects
-    surface = pygame.display.set_mode(WINDOW_SIZE)
+    # Create pygame surface and objects
     pygame.display.set_caption(' Guitarren Held ')
     clock = pygame.time.Clock()
 

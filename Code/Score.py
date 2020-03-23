@@ -9,11 +9,31 @@ class Score(pygame.sprite.Sprite):
         self.y = y
         self.score = 1000
     #score de parametro se suma a lo que ya tenemos
-    def draw(self,surface,score):
+    def draw(self,surface,score,multiplicador,cantidadNotas):
         self.score += score
-        texto = str(score)
         fuente = pygame.font.Font(None, 30)
-        texto1 = fuente.render(texto, 0, (255, 255, 255))
-        surface.blit(self.image,(self.x,self.y))
-        surface.blit(texto1, (45, 125))
+        notas = str(cantidadNotas)
+        notseguidas = fuente.render(notas, 0, (255,0,0))
+        
+        if(multiplicador>1):
+            texto = str(score)
+            por = 'x'
+            mul = str(multiplicador)
+            texto1 = fuente.render(texto, 0, (255, 255, 255))
+            texto2 = fuente.render(por, 0, (255, 0, 255))
+            texto3 = fuente.render(mul, 0, (0, 255, 255))
+            surface.blit(self.image,(self.x,self.y))
+            surface.blit(texto1, (35, 125))
+            surface.blit(texto2, (75, 125))
+            surface.blit(texto3, (90, 125))
+            surface.blit(notseguidas,(45,300))
+            
+        else:
+            texto = str(score)
+            texto1 = fuente.render(texto, 0, (255, 255, 255))
+            surface.blit(self.image,(self.x,self.y))
+            surface.blit(texto1, (45, 125))
+            surface.blit(notseguidas,(45,300))
+            
+        
         #falta agregar metodo que dibuje y sume puntaje

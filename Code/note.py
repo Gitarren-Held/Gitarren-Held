@@ -30,6 +30,8 @@ class note(pygame.sprite.Sprite):
         self.image = pygame.transform.scale(self.image,(self.TamX,self.TamY))
         self.tipo =tipo
         self.exist = False
+        self.bonus = random.randrange(10)
+        self.end = False
     #dibuja la nota en pantalla 
     def draw(self, surface):
         start_pos = (0, self.y)
@@ -45,13 +47,14 @@ class note(pygame.sprite.Sprite):
         self.image = pygame.transform.scale(self.image,(self.TamX,self.TamY))
     #movimiento : mueve la nota hasta el limite de pantalla
     def __movimientos(self,dificultad):
-        if((self.y < HEIGHT)):
+        if(self.y < HEIGHT):#and(self.end==False)):
             if(self.y>60):
                 #crece la nota en los rangos definidos
                 if((self.y>40)and(self.TamX<64)):
                     self.TamY += (int)(self.y*0.006)
                     self.TamX += (int)(self.y*0.009)
                     self.x += 0.2
+                   
                     self.image = load_image("Img/Notas/"+self.tipo+".png", True)
                     self.image = pygame.transform.scale(self.image,(self.TamX,self.TamY))
                 #dependiendo de cada tipo de nota esta se movera hacia izq o der (es para que el crecimineto no mueva tanto la nota)
@@ -84,6 +87,9 @@ class note(pygame.sprite.Sprite):
                 self.rect.top+=6
                 self.y +=6
             #pygame.display.update()
+        if(self.end):
+            self.remove()
+            self.update()
     #metodo que genera el movimiento
     def comportamiento(self,dificultad):
         self.__movimientos(dificultad)
@@ -126,20 +132,23 @@ def Linea(screen,notas,x,y):
         listaNotas.append(Orange)
     return listaNotas
 #genera un movimiento en todas las notas existentes en la lista
-def movimientolista(listaNotas,screen,botonera,StarPower,Cantidad_notas,Dibuj):
+def movimientolista(listaNotas,screen,botonera,StarPower,Cantidad_notas,Dibuj,cantStarPower,cadenaNotas):
     for i in range(0,len(listaNotas)):
         listaNotas[i].comportamiento(1)
         if((listaNotas[i].y>90)and(listaNotas[i].y<480)and(Dibuj)):
-            if(StarPower):
+            if((StarPower)or(listaNotas[i].bonus == 0)):
                 listaNotas[i].StarPower()
+                if(StarPower):
+                    cantStarPower = cantStarPower - 0.01
             else:
                 listaNotas[i].image = load_image("Img/Notas/"+listaNotas[i].tipo+".png", True)
                 listaNotas[i].image = pygame.transform.scale(listaNotas[i].image,(listaNotas[i].TamX,listaNotas[i].TamY))
             listaNotas[i].draw(screen)
         if(listaNotas[i].y==460):
+            cadenaNotas = 0
             listaNotas[i].kill()
             Cantidad_notas = Cantidad_notas+1
-    return Cantidad_notas
+    return (Cantidad_notas,cantStarPower)
         
 
         
