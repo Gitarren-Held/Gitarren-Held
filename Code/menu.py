@@ -13,7 +13,7 @@ from Medidor import *
 from Gameplay import GamePlayStart
 from note import *
 import random
-import time, datetime
+import time, datetime 
 
 
 # -----------------------------------------------------------------------------
@@ -59,7 +59,8 @@ def change_difficulty(value, difficulty):
     """
     selected, index = value
     print('Selected difficulty: "{0}" ({1}) at index {2}'.format(selected, difficulty, index))
-    DIFFICULTY[0] = difficulty
+    DIFFICULTY[0] = difficulty#0 easy 1 medium 2 hard
+
 
 
 def random_color():
@@ -97,8 +98,10 @@ def play_function(difficulty, font, test=False):
         Gameplay(cancion)
     elif difficulty == 'MEDIUM':
         f = font.render('Playing as a kid (medium)', 1, COLOR_WHITE)
+        cancion = "Code/test-song1"
     elif difficulty == 'HARD':
         f = font.render('Playing as a champion (hard)', 1, COLOR_WHITE)
+        cancion = "Code/test-song1"
     else:
         raise Exception('Unknown difficulty {0}'.format(difficulty))
 
@@ -224,6 +227,7 @@ def main(test=False):
                             ('3 - Hard', 'HARD')],
                            onchange=change_difficulty,
                            selector_id='select_difficulty')
+                           
     play_menu.add_option('Another menu', play_submenu)
     play_menu.add_option('Return to main menu', pygameMenu.events.BACK)
 
