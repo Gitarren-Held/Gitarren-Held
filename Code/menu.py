@@ -104,6 +104,14 @@ def play_function(difficulty, font, test=False):
         f = font.render('Playing as a champion (hard)', 1, COLOR_WHITE)
         cancion = "Code/test-song3"
         Gameplay2(cancion)
+    elif difficulty == 'HARD2':
+        f = font.render('Playing as a champion (hard)', 1, COLOR_WHITE)
+        cancion = "Code/test-song4"
+        Gameplay2(cancion)
+    elif difficulty == 'HARD3':
+        f = font.render('Playing as a champion (hard)', 1, COLOR_WHITE)
+        cancion = "Code/test-song5"
+        Gameplay2(cancion)
     else:
         raise Exception('Unknown difficulty {0}'.format(difficulty))
 
@@ -211,6 +219,12 @@ def main(test=False):
                                    window_height=WINDOW_SIZE[1],
                                    window_width=WINDOW_SIZE[0]
                                    )
+    play_submenu.add_selector('Seleccione: ',#Cambiamos las dificultados por las canciones
+                           [('- Fácil', 'EASY'),
+                            ('- Medio', 'EASY'),
+                            ('- Difícil', 'EASY')],
+                           onchange=change_difficulty,
+                           selector_id='select_difficulty')
     play_submenu.add_option('Salir', pygameMenu.events.BACK)
 
     play_menu.add_option('Comenzar',  # When pressing return -> play(DIFFICULTY[0], font)
@@ -219,10 +233,10 @@ def main(test=False):
                          pygame.font.Font(pygameMenu.font.FONT_FRANCHISE, 30))
     play_menu.add_selector('',#Cambiamos las dificultados por las canciones
                            [('1 - Corazón espinado', 'EASY'),
-                            ('2 - The Man Who Sold The World', 'EASY'),
+                            ('2 - The Man Who Sold The World', 'MEDIUM'),
                             ('3 - Song1', 'EASY'),
                             ('4 - Song2', 'EASY'),
-                            ('5 - ThunderStruck', 'EASY')],
+                            ('5 - ThunderStruck', 'HARD')],
                            onchange=change_difficulty,
                            selector_id='select_difficulty')
                            
