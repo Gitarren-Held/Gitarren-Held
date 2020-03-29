@@ -29,17 +29,24 @@ class Botonera(pygame.sprite.Sprite):
         surface.blit(self.image,(self.x,self.y))
     def is_collided_with(self, sprite):
         return self.rect.colliderect(sprite.rect)
-    def Active_collider(self,sprite,score,screen):
-        #print(len(sprite))
+    def Active_collider(self,sprite,score,screen,PuntajeMedidor):
+        print(PuntajeMedidor)
+        coll = False
         for i in range(0,len(sprite)):
             if((self.is_collided_with(sprite[i]))and(self.tipo==sprite[i].tipo)and(sprite[i].y>439)and(sprite[i].y<471)): 
-                sprite[i].kill()
+                PuntajeMedidor = PuntajeMedidor+4
                 sprite[i].end=True
                 self.image = pygame.transform.scale(load_image("Img/Botonera/"+self.tipo+"OnFire.png", True),(100,56))
                 screen.blit(self.image,(self.x,self.y))
-                
-                return (True,sprite)
-        return (False,sprite)
+                sprite[i].kill()
+                sprite[i].remove()
+                return (True,sprite,PuntajeMedidor)
+            else:
+                if((sprite[i].y>439)and(sprite[i].y<471)):
+                    coll = True
+        if(coll):
+            PuntajeMedidor = PuntajeMedidor-4
+        return (False,sprite,PuntajeMedidor)
         
     #determina el estado del 'boton' dependiendo del input del usuario
     #1 = activo, num = arreglo[posicion](0,0,0,0,0,0)
