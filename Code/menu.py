@@ -2,8 +2,10 @@ import os
 from random import randrange
 import pygame
 import pygameMenu
-# Import libraries
+import random
+import time, datetime 
 import sys
+
 sys.path.insert(0, '../../')
 from note import *
 from botonera import *
@@ -17,19 +19,15 @@ import time, datetime
 
 
 # -----------------------------------------------------------------------------
-# Constants and global variables
+# Constantes globales
 # -----------------------------------------------------------------------------
-ABOUT = ['pygameMenu {0}'.format(pygameMenu.__version__),
-         'Author: @{0}'.format(pygameMenu.__author__),
-         pygameMenu.locals.TEXT_NEWLINE,
-         'Email: {0}'.format(pygameMenu.__email__)]
-COLOR_BACKGROUND = (128, 0, 128)
+COLOR_BACKGROUND = (0, 0, 128)
 COLOR_BLACK = (0, 0, 0)
 COLOR_WHITE = (255, 255, 255)
 DIFFICULTY = ['EASY']
 FPS = 60.0
-MENU_BACKGROUND_COLOR = (228, 55, 36)
-WINDOW_SIZE = (640, 480)
+MENU_BACKGROUND_COLOR = (0, 128, 0)
+WINDOW_SIZE = (640, 480)#(640, 480)
 clock = None
 main_menu = None
 surface = None
@@ -46,7 +44,7 @@ shape_color = (40, 210, 250)
 
 
 # -----------------------------------------------------------------------------
-# Methods
+# Metodos del MENU
 # -----------------------------------------------------------------------------
 def change_difficulty(value, difficulty):
     """
@@ -61,8 +59,6 @@ def change_difficulty(value, difficulty):
     print('Selected difficulty: "{0}" ({1}) at index {2}'.format(selected, difficulty, index))
     DIFFICULTY[0] = difficulty#0 easy 1 medium 2 hard
 
-
-
 def random_color():
     """
     Return random color.
@@ -70,7 +66,6 @@ def random_color():
     :rtype: tuple
     """
     return randrange(0, 255), randrange(0, 255), randrange(0, 255)
-
 
 def play_function(difficulty, font, test=False):
     """
@@ -103,6 +98,14 @@ def play_function(difficulty, font, test=False):
     elif difficulty == 'HARD':
         f = font.render('Playing as a champion (hard)', 1, COLOR_WHITE)
         cancion = "Code/test-song3"
+        Gameplay(cancion)
+    elif difficulty == 'HARD2':
+        f = font.render('Playing as a champion (hard)', 1, COLOR_WHITE)
+        cancion = "Code/test-song4"
+        Gameplay(cancion)
+    elif difficulty == 'HARD3':
+        f = font.render('Playing as a champion (hard)', 1, COLOR_WHITE)
+        cancion = "Code/test-song5"
         Gameplay(cancion)
     else:
         raise Exception('Unknown difficulty {0}'.format(difficulty))
@@ -145,16 +148,9 @@ def play_function(difficulty, font, test=False):
         if test:
             break
 
-
 def main_background():
-    """
-    Function used by menus, draw on background while menu is active.
-    :return: None
-    """
     global surface
     surface.fill(COLOR_BACKGROUND)
-
-
 def main(test=False):
     """
     Main program.
@@ -197,7 +193,7 @@ def main(test=False):
                                 menu_width=int(WINDOW_SIZE[0] * 0.7),
                                 onclose=pygameMenu.events.DISABLE_CLOSE,
                                 option_shadow=False,
-                                title='Play menu',
+                                title='Seleccione Cancion',
                                 window_height=WINDOW_SIZE[1],
                                 window_width=WINDOW_SIZE[0]
                                 )
@@ -213,52 +209,35 @@ def main(test=False):
                                    menu_height=int(WINDOW_SIZE[1] * 0.5),
                                    menu_width=int(WINDOW_SIZE[0] * 0.7),
                                    option_shadow=False,
-                                   title='Submenu',
+                                   title='Dificultad',
                                    window_height=WINDOW_SIZE[1],
                                    window_width=WINDOW_SIZE[0]
                                    )
-    play_submenu.add_option('Back', pygameMenu.events.BACK)
+    play_submenu.add_selector('Seleccione: ',#Cambiamos las dificultados por las canciones
+                           [('- Fácil', 'EASY'),
+                            ('- Medio', 'EASY'),
+                            ('- Difícil', 'EASY')],
+                           onchange=change_difficulty,
+                           selector_id='select_difficulty')
+    play_submenu.add_option('Salir', pygameMenu.events.BACK)
 
-    play_menu.add_option('Start',  # When pressing return -> play(DIFFICULTY[0], font)
+    play_menu.add_option('Comenzar',  
                          play_function,
                          DIFFICULTY,
                          pygame.font.Font(pygameMenu.font.FONT_FRANCHISE, 30))
-    play_menu.add_selector('Select Songs:',#Cambiamos las dificultados por las canciones
-                           [('1 - Corazón espinado', 'EASY'),
+    play_menu.add_selector('',#Cambiamos las dificultados y las canciones
+                           [('1 - Corazon espinado', 'EASY'),
                             ('2 - The Man Who Sold The World', 'MEDIUM'),
-                            ('3 - ThunderStruck', 'HARD')],
+                            ('3 - De Musica Ligera', 'HARD2'),
+                            ('4 - Back in Black', 'HARD3'),
+                            ('5 - ThunderStruck', 'HARD')],
                            onchange=change_difficulty,
                            selector_id='select_difficulty')
                            
-    play_menu.add_option('Another menu', play_submenu)
-    play_menu.add_option('Return to main menu', pygameMenu.events.BACK)
+    play_menu.add_option('Dificultad', play_submenu)
+    play_menu.add_option('Volver a menú', pygameMenu.events.BACK)
 
-    # About menu
-    about_menu = pygameMenu.TextMenu(surface,
-                                     bgfun=main_background,
-                                     color_selected=COLOR_WHITE,
-                                     font=pygameMenu.font.FONT_BEBAS,
-                                     font_color=COLOR_BLACK,
-                                     font_size_title=30,
-                                     font_title=pygameMenu.font.FONT_8BIT,
-                                     menu_color=MENU_BACKGROUND_COLOR,
-                                     menu_color_title=COLOR_WHITE,
-                                     menu_height=int(WINDOW_SIZE[1] * 0.6),
-                                     menu_width=int(WINDOW_SIZE[0] * 0.6),
-                                     onclose=pygameMenu.events.DISABLE_CLOSE,
-                                     option_shadow=False,
-                                     text_color=COLOR_BLACK,
-                                     text_fontsize=20,
-                                     title='About',
-                                     window_height=WINDOW_SIZE[1],
-                                     window_width=WINDOW_SIZE[0]
-                                     )
-    for m in ABOUT:
-        about_menu.add_line(m)
-    about_menu.add_line(pygameMenu.locals.TEXT_NEWLINE)
-    about_menu.add_option('Return to menu', pygameMenu.events.BACK)
-
-    # Main menu
+    # Main del menu
     main_menu = pygameMenu.Menu(surface,
                                 bgfun=main_background,
                                 color_selected=COLOR_WHITE,
@@ -275,16 +254,15 @@ def main(test=False):
                                 window_height=WINDOW_SIZE[1],
                                 window_width=WINDOW_SIZE[0]
                                 )
+    main_menu.add_option('Jugar', play_menu)
+    
+    main_menu.add_option('Salir', pygameMenu.events.EXIT)
 
-    main_menu.add_option('Play', play_menu)
-    main_menu.add_option('About', about_menu)
-    main_menu.add_option('Quit', pygameMenu.events.EXIT)
-
-    # Configure main menu
+    #Configura el main del menu
     main_menu.set_fps(FPS)
 
     # -------------------------------------------------------------------------
-    # Main loop
+    # Main del ciclo
     # -------------------------------------------------------------------------
     while True:
 
@@ -306,12 +284,12 @@ def main(test=False):
         # Flip surface
         pygame.display.flip()
 
-        # At first loop returns
+        # At first losop returns
         if test:
             break
-
-
-
+# -----------------------------------------------------------------------------
+# Gameplays
+# -----------------------------------------------------------------------------
 def Gameplay(cancion):
     fin = False
     PuntajeMedidor = 70
@@ -631,21 +609,23 @@ def Gameplay(cancion):
                 texto = "Completado :"+str(por)+"%"
                 aciertos = "Aciertos :"+str(scor)
                 errores = "Errores :"+str(cantidadNotasTotales-scor)
+                salir = "Aprete 'esc' para volver!"
                 fuente = pygame.font.Font(None, 60)
                 texto1 = fuente.render(texto, 0, (255, 0, 0))
                 texto2 = fuente.render(aciertos, 0, (255, 0, 0))
                 texto3 = fuente.render(errores, 0, (255, 0, 0))
+                texto4 = fuente.render(salir,0,(255,0,0))
                 surface.blit(texto1, (110,120))
                 surface.blit(texto2, (110,220))
                 surface.blit(texto3, (110,340))
+                surface.blit(texto4,(110,420))
+                break
         #pygame.draw.line(surface, color, start_pos2, end_pos2, width)
         
         pygame.draw.rect(surface, shape_color, ((10, 50), (130, 20)), 3)
         pygame.draw.rect(surface, shape_color, pygame.Rect((10, 50, cantStarPower, 20)), 0)
         pygame.display.flip()
         pygame.display.update()
-
-
 
 if __name__ == '__main__':
     main()
