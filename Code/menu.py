@@ -316,7 +316,7 @@ def main(test=False):
         # Flip surface
         pygame.display.flip()
 
-        # At first loop returns
+        # At first losop returns
         if test:
             break
 
