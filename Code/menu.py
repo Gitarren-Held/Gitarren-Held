@@ -11,7 +11,9 @@ from Arduino import *
 from Score import *
 from Medidor import *
 from Gameplay import GamePlayStart
-from note import *
+from Gameplay1 import GamePlayStart1
+from Gameplay2 import GamePlayStart2
+
 import random
 import time, datetime 
 
@@ -98,10 +100,12 @@ def play_function(difficulty, font, test=False):
         Gameplay(cancion)
     elif difficulty == 'MEDIUM':
         f = font.render('Playing as a kid (medium)', 1, COLOR_WHITE)
-        cancion = "Code/test-song1"
+        cancion = "Code/test-song2"
+        Gameplay(cancion)
     elif difficulty == 'HARD':
         f = font.render('Playing as a champion (hard)', 1, COLOR_WHITE)
-        cancion = "Code/test-song1"
+        cancion = "Code/test-song3"
+        Gameplay(cancion)
     else:
         raise Exception('Unknown difficulty {0}'.format(difficulty))
 
@@ -221,10 +225,10 @@ def main(test=False):
                          play_function,
                          DIFFICULTY,
                          pygame.font.Font(pygameMenu.font.FONT_FRANCHISE, 30))
-    play_menu.add_selector('Select difficulty',
-                           [('1 - Easy', 'EASY'),
-                            ('2 - Medium', 'MEDIUM'),
-                            ('3 - Hard', 'HARD')],
+    play_menu.add_selector('Select Songs:',#Cambiamos las dificultados por las canciones
+                           [('1 - Corazón espinado', 'EASY'),
+                            ('2 - The Man Who Sold The World', 'MEDIUM'),
+                            ('3 - ThunderStruck', 'HARD')],
                            onchange=change_difficulty,
                            selector_id='select_difficulty')
                            
@@ -322,7 +326,7 @@ def Gameplay(cancion):
     Dibuj = True
     #carga cancion por test
     scor = 0
-    #    song = load_sound("test")
+    song = load_sound("test")
     #-----------------------------------------------------------------------------
     #carga img de guitarra ( fondo donde van las notas) y luego le da un tamaño
     Guitarra = pygame.image.load("Img/Gameplay/Guitarra.png")
@@ -359,7 +363,7 @@ def Gameplay(cancion):
     #termina de cargar la cancion en memoria
     #-----------------------------------------------------------------------------
     #comienza el loop y por lo tanto la cancion se ejecuta
-    #song.play()
+    song.play()
     while (game):    
         #input arduino (error de lag),(cambiar tiempo de lectura)
         #inp = Leer(direccion)in   s
@@ -606,7 +610,8 @@ def Gameplay(cancion):
         score.draw(surface,scor,multiplicador,cadenaNotas)
         medidor.draw(surface,101)
         #Fin
-        if(Cantidad_notas > 200):
+        if(Cantidad_notas > 10):
+                song.stop();
                 Dibuj = False;
                 fondo = pygame.image.load("Img/Gameplay/fin.png")
                 fondo=pygame.transform.scale(fondo,(1280,720))
@@ -629,6 +634,7 @@ def Gameplay(cancion):
         pygame.draw.rect(surface, shape_color, pygame.Rect((10, 50, cantStarPower, 20)), 0)
         pygame.display.flip()
         pygame.display.update()
+
 
 
 if __name__ == '__main__':
