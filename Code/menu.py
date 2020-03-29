@@ -11,8 +11,7 @@ from Arduino import *
 from Score import *
 from Medidor import *
 from Gameplay import GamePlayStart
-from Gameplay1 import GamePlayStart1
-from Gameplay2 import GamePlayStart2
+
 
 import random
 import time, datetime 
@@ -691,7 +690,7 @@ def Gameplay1(cancion):
     #termina de cargar la cancion en memoria
     #-----------------------------------------------------------------------------
     #comienza el loop y por lo tanto la cancion se ejecuta
-    #song.play()
+    song.play()
     while (game):    
         #input arduino (error de lag),(cambiar tiempo de lectura)
         #inp = Leer(direccion)in   s
@@ -1297,7 +1296,7 @@ def Gameplay3(cancion):
     Dibuj = True
     #carga cancion por test
     scor = 0
-    song = load_sound("TheManWhoSoldTheWorld")
+    song = load_sound("DeMusicaLigera")
     #-----------------------------------------------------------------------------
     #carga img de guitarra ( fondo donde van las notas) y luego le da un tamaño
     Guitarra = pygame.image.load("Img/Gameplay/Guitarra.png")
@@ -1334,7 +1333,7 @@ def Gameplay3(cancion):
     #termina de cargar la cancion en memoria
     #-----------------------------------------------------------------------------
     #comienza el loop y por lo tanto la cancion se ejecuta
-    #song.play()
+    song.play()
     while (game):    
         #input arduino (error de lag),(cambiar tiempo de lectura)
         #inp = Leer(direccion)in   s
@@ -1618,7 +1617,7 @@ def Gameplay4(cancion):
     Dibuj = True
     #carga cancion por test
     scor = 0
-    song = load_sound("TheManWhoSoldTheWorld")
+    song = load_sound("BackInBlack")
     #-----------------------------------------------------------------------------
     #carga img de guitarra ( fondo donde van las notas) y luego le da un tamaño
     Guitarra = pygame.image.load("Img/Gameplay/Guitarra.png")
@@ -1655,7 +1654,7 @@ def Gameplay4(cancion):
     #termina de cargar la cancion en memoria
     #-----------------------------------------------------------------------------
     #comienza el loop y por lo tanto la cancion se ejecuta
-    #song.play()
+    song.play()
     while (game):    
         #input arduino (error de lag),(cambiar tiempo de lectura)
         #inp = Leer(direccion)in   s
