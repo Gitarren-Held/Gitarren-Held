@@ -606,13 +606,17 @@ def Gameplay(cancion):
                 texto = "Completado :"+str(por)+"%"
                 aciertos = "Aciertos :"+str(scor)
                 errores = "Errores :"+str(cantidadNotasTotales-scor)
+                salir = "Aprete 'esc' para volver!"
                 fuente = pygame.font.Font(None, 60)
                 texto1 = fuente.render(texto, 0, (255, 0, 0))
                 texto2 = fuente.render(aciertos, 0, (255, 0, 0))
                 texto3 = fuente.render(errores, 0, (255, 0, 0))
+                texto4 = fuente.render(salir,0,(255,0,0))
                 surface.blit(texto1, (110,120))
                 surface.blit(texto2, (110,220))
                 surface.blit(texto3, (110,340))
+                surface.blit(texto4,(110,420))
+                break
         #pygame.draw.line(surface, color, start_pos2, end_pos2, width)
         
         pygame.draw.rect(surface, shape_color, ((10, 50), (130, 20)), 3)
