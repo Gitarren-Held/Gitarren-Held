@@ -90,27 +90,32 @@ def play_function(difficulty, font, test=False):
         f = font.render('Playing as a kid (easy)', 1, COLOR_WHITE)
         cancion = "Code/test-song1"
         musica = "CorazonEspinado"
-        Gameplay(cancion,musica)
+        notasMusica = 450
+        Gameplay(cancion,musica,notasMusica)
     elif difficulty == 'MEDIUM':
         f = font.render('Playing as a kid (medium)', 1, COLOR_WHITE)
         cancion = "Code/test-song2"
         musica = "TheManWhoSoldTheWorld"
-        Gameplay(cancion,musica)
+        notasMusica = 600
+        Gameplay(cancion,musica,notasMusica)
     elif difficulty == 'HARD':
         f = font.render('Playing as a champion (hard)', 1, COLOR_WHITE)
         cancion = "Code/test-song3"
         musica = "ThunderStruck"
-        Gameplay(cancion,musica)
+        notasMusica = 700
+        Gameplay(cancion,musica,notasMusica)
     elif difficulty == 'HARD2':
         f = font.render('Playing as a champion (hard)', 1, COLOR_WHITE)
         cancion = "Code/test-song4"
         musica = "DeMusicaLigera"
-        Gameplay(cancion,musica)
+        notasMusica = 600
+        Gameplay(cancion,musica,notasMusica)
     elif difficulty == 'HARD3':
         f = font.render('Playing as a champion (hard)', 1, COLOR_WHITE)
         cancion = "Code/test-song5"
         musica = "BackInBlack"
-        Gameplay(cancion,musica)
+        notasMusica = 500
+        Gameplay(cancion,musica,notasMusica)
     else:
         raise Exception('Unknown difficulty {0}'.format(difficulty))
 
@@ -293,7 +298,7 @@ def main(test=False):
 # -----------------------------------------------------------------------------
 # Gameplays
 # -----------------------------------------------------------------------------
-def Gameplay(cancion,musica):
+def Gameplay(cancion,musica,notasMusica):
     fin = False
     PuntajeMedidor = 70
     cadenaNotas = 0
@@ -591,7 +596,7 @@ def Gameplay(cancion,musica):
         medidor.draw(surface,PuntajeMedidor)
         #Fin
         finalNotas = 50
-        CantidadFinal = 450
+        CantidadFinal = notasMusica#450
         if(PuntajeMedidor<0):
             fin = True
         if((Cantidad_notas > finalNotas)or fin):
