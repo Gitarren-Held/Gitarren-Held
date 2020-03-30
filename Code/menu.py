@@ -316,7 +316,7 @@ def Gameplay(cancion,musica):
     #detalles de pantalla pygame reloj = fps 
     reloj = pygame.time.Clock()
     #surface = pygame.display.set_mode((WIDTH, HEIGHT))
-    pygame.display.set_caption("Pruebas Pygame")
+    pygame.display.set_caption("GUITARREN HELD")
     #-----------------------------------------------------------------------------
     #botonera
     botonera = BotoneraCompleta()
@@ -575,7 +575,11 @@ def Gameplay(cancion,musica):
         #-----------------------------------------------------------------------------
         #for que genera el movimiento en las notas segun cuantas existan en la cancion
         if(isActiveStartPower):
+                fuente = pygame.font.Font(None, 60)
                 StarPower = isActiveStartPower
+                tex = '¡¡STARPOWER!!'
+                tex_ = fuente.render(tex, 0, (0, 255, 255))
+                surface.blit(tex_,(150,0))
                 if(cantStarPower<0):
                         StarPower = False  
         else:
@@ -587,29 +591,47 @@ def Gameplay(cancion,musica):
         score.draw(surface,scor,multiplicador,cadenaNotas)
         medidor.draw(surface,PuntajeMedidor)
         #Fin
+        finalNotas = 50
+        CantidadFinal = 450
         if(PuntajeMedidor<0):
             fin = True
-        if((Cantidad_notas > 200)or fin):
+        if((Cantidad_notas > finalNotas)or fin):
+                star1 = load_image("Img/star.png", True)
+                star1 = pygame.transform.scale(star1,(117,93))
+                star2 = load_image("Img/star.png", True)
+                star2 = pygame.transform.scale(star1,(117,93))
+                star3 = load_image("Img/star.png", True)
+                star3 = pygame.transform.scale(star1,(117,93))
                 song.stop();
                 Dibuj = False;
                 fondo = pygame.image.load("Img/Gameplay/fin.png")
                 fondo=pygame.transform.scale(fondo,(1280,720))
                 surface.blit(fondo,(0,0))
                 #calculos
-                por = "{0:.4f}".format((scor * 100)/cantidadNotasTotales)
+                por = "{0:.0f}".format((scor * 100)/CantidadFinal)
                 texto = "Completado :"+str(por)+"%"
                 aciertos = "Aciertos :"+str(scor)
-                errores = "Errores :"+str(cantidadNotasTotales-scor)
+                errores = "Errores :"+str(200-scor)
                 salir = "Aprete 'esc' para volver!"
                 fuente = pygame.font.Font(None, 60)
-                texto1 = fuente.render(texto, 0, (255, 0, 0))
-                texto2 = fuente.render(aciertos, 0, (255, 0, 0))
-                texto3 = fuente.render(errores, 0, (255, 0, 0))
-                texto4 = fuente.render(salir,0,(255,0,0))
+                texto1 = fuente.render(texto, 0, (0, 0, 255))
+                texto2 = fuente.render(aciertos, 0, ( 0, 0,255))
+                texto3 = fuente.render(errores, 0, ( 0, 0,255))
+                texto4 = fuente.render(salir,0,(0,0,255))
                 surface.blit(texto1, (110,120))
-                surface.blit(texto2, (110,220))
-                surface.blit(texto3, (110,340))
-                surface.blit(texto4,(110,420))
+                #surface.blit(texto2, (110,220))
+                #surface.blit(texto3, (110,340))
+                surface.blit(texto4,(110,220))
+                if(((scor * 100)/CantidadFinal)<20):
+                    surface.blit(star1,(200,1))
+                if(((scor * 100)/CantidadFinal)>20 and (((scor * 100)/CantidadFinal)<80 )):
+                    surface.blit(star1,(200,1))
+                    surface.blit(star2,(300,1))
+                if((((scor * 100)/CantidadFinal)>80)):
+                    surface.blit(star1,(200,1))
+                    surface.blit(star2,(300,1))
+                    surface.blit(star3,(400,1))
+
                 break
         #pygame.draw.line(surface, color, start_pos2, end_pos2, width)
         

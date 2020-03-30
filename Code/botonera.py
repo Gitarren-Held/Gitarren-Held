@@ -47,7 +47,7 @@ class Botonera(pygame.sprite.Sprite):
                     coll = True
                     cadenaNotas =0
         if(coll):
-            PuntajeMedidor = PuntajeMedidor-4
+            PuntajeMedidor = PuntajeMedidor-8
         return (False,sprite,PuntajeMedidor,cadenaNotas)
         
     #determina el estado del 'boton' dependiendo del input del usuario
