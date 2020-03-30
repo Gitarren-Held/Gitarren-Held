@@ -41,7 +41,7 @@ class Score(pygame.sprite.Sprite):
             notas = 'Notas Perfectas Seguidas'
             texto4 = fuente.render(notas,0,(0, 255, 255))
             surface.blit(texto4,(200,10))
-            surface.blit(notseguidas,(200,40))
+            surface.blit(notseguidas,(300,40))
         else:
             notas = ' '
             texto4 = fuente.render(notas,0,(0, 255, 255))

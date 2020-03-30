@@ -584,7 +584,7 @@ def Gameplay(cancion,musica,notasMusica):
                 StarPower = isActiveStartPower
                 tex = '¡¡STARPOWER!!'
                 tex_ = fuente.render(tex, 0, (0, 255, 255))
-                surface.blit(tex_,(150,0))
+                surface.blit(tex_,(150,60))
                 if(cantStarPower<0):
                         StarPower = False  
         else:
@@ -617,7 +617,7 @@ def Gameplay(cancion,musica,notasMusica):
                 texto = "Completado :"+str(por)+"%"
                 aciertos = "Aciertos :"+str(scor)
                 errores = "Errores :"+str(200-scor)
-                salir = "Aprete 'esc' para volver!"
+                salir = "Presione 'esc' para volver!"
                 fuente = pygame.font.Font(None, 60)
                 texto1 = fuente.render(texto, 0, (0, 0, 255))
                 texto2 = fuente.render(aciertos, 0, ( 0, 0,255))

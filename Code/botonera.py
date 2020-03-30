@@ -39,7 +39,7 @@ class Botonera(pygame.sprite.Sprite):
                 sprite[i].end=True
                 self.image = pygame.transform.scale(load_image("Img/Botonera/"+self.tipo+"OnFire.png", True),(100,56))
                 screen.blit(self.image,(self.x,self.y))
-                sprite[i].kill()
+                sprite[i].kill()#DEBERIA DESAPARECERR
                 sprite[i].remove()
                 return (True,sprite,PuntajeMedidor,cadenaNotas)
             else:
