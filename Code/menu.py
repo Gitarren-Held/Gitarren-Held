@@ -18,15 +18,15 @@ from Gameplay import GamePlayStart
 # -----------------------------------------------------------------------------
 # Constantes globales
 # -----------------------------------------------------------------------------
-COLOR_BACKGROUND = (0, 0, 128)
+COLOR_BACKGROUND = (88, 164, 176)
 COLOR_BLACK = (0, 0, 0)
 COLOR_WHITE = (255, 255, 255)
 DIFFICULTY = ['EASY']
 FPS = 60.0
-MENU_BACKGROUND_COLOR = (0, 128, 0)
+MENU_BACKGROUND_COLOR = (214, 73, 51)
 WINDOW_SIZE = (640, 480)#(640, 480)
 clock = None
-main_menu = None
+main_menu = (0,0,0)
 surface = None
 WIDTH = 640
 HEIGHT = 480
@@ -37,7 +37,7 @@ end_pos2 = (WIDTH,470)
 width = 1
 surface = pygame.display.set_mode(WINDOW_SIZE)
 color = (0,0,0)
-shape_color = (40, 210, 250)
+shape_color = (43, 48, 58)
 
 
 # -----------------------------------------------------------------------------
@@ -183,18 +183,17 @@ def main(test=False):
                                 color_selected=COLOR_WHITE,
                                 font=pygameMenu.font.FONT_BEBAS,
                                 font_color=COLOR_BLACK,
-                                font_size=30,
+                                font_size=24,
                                 menu_alpha=100,
                                 menu_color=MENU_BACKGROUND_COLOR,
-                                menu_height=int(WINDOW_SIZE[1] * 0.7),
-                                menu_width=int(WINDOW_SIZE[0] * 0.7),
+                                menu_height=int(WINDOW_SIZE[1] ),
+                                menu_width=int(WINDOW_SIZE[0]),
                                 onclose=pygameMenu.events.DISABLE_CLOSE,
                                 option_shadow=False,
                                 title='Seleccione Cancion',
                                 window_height=WINDOW_SIZE[1],
                                 window_width=WINDOW_SIZE[0]
                                 )
-
     play_submenu = pygameMenu.Menu(surface,
                                    bgfun=main_background,
                                    color_selected=COLOR_WHITE,
@@ -203,8 +202,8 @@ def main(test=False):
                                    font_size=30,
                                    menu_alpha=100,
                                    menu_color=MENU_BACKGROUND_COLOR,
-                                   menu_height=int(WINDOW_SIZE[1] * 0.5),
-                                   menu_width=int(WINDOW_SIZE[0] * 0.7),
+                                   menu_height=int(WINDOW_SIZE[1]),
+                                   menu_width=int(WINDOW_SIZE[0]),
                                    option_shadow=False,
                                    title='Dificultad',
                                    window_height=WINDOW_SIZE[1],
