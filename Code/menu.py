@@ -89,7 +89,7 @@ def play_function(difficulty, font, test=False):
     if difficulty == 'EASY':
         f = font.render('Playing as a kid (easy)', 1, COLOR_WHITE)
         cancion = "Code/test-song1"
-        musica = "test"
+        musica = "CorazonEspinado"
         Gameplay(cancion,musica)
     elif difficulty == 'MEDIUM':
         f = font.render('Playing as a kid (medium)', 1, COLOR_WHITE)
