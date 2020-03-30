@@ -85,28 +85,32 @@ def play_function(difficulty, font, test=False):
     # Define globals
     global main_menu
     global clock
-    
 
     if difficulty == 'EASY':
         f = font.render('Playing as a kid (easy)', 1, COLOR_WHITE)
         cancion = "Code/test-song1"
-        Gameplay(cancion)
+        musica = "test"
+        Gameplay(cancion,musica)
     elif difficulty == 'MEDIUM':
         f = font.render('Playing as a kid (medium)', 1, COLOR_WHITE)
         cancion = "Code/test-song2"
-        Gameplay(cancion)
+        musica = "TheManWhoSoldTheWorld"
+        Gameplay(cancion,musica)
     elif difficulty == 'HARD':
         f = font.render('Playing as a champion (hard)', 1, COLOR_WHITE)
         cancion = "Code/test-song3"
-        Gameplay(cancion)
+        musica = "ThunderStruck"
+        Gameplay(cancion,musica)
     elif difficulty == 'HARD2':
         f = font.render('Playing as a champion (hard)', 1, COLOR_WHITE)
         cancion = "Code/test-song4"
-        Gameplay(cancion)
+        musica = "DeMusicaLigera"
+        Gameplay(cancion,musica)
     elif difficulty == 'HARD3':
         f = font.render('Playing as a champion (hard)', 1, COLOR_WHITE)
         cancion = "Code/test-song5"
-        Gameplay(cancion)
+        musica = "BackInBlack"
+        Gameplay(cancion,musica)
     else:
         raise Exception('Unknown difficulty {0}'.format(difficulty))
 
@@ -289,7 +293,7 @@ def main(test=False):
 # -----------------------------------------------------------------------------
 # Gameplays
 # -----------------------------------------------------------------------------
-def Gameplay(cancion):
+def Gameplay(cancion,musica):
     fin = False
     PuntajeMedidor = 70
     cadenaNotas = 0
@@ -303,7 +307,7 @@ def Gameplay(cancion):
     Dibuj = True
     #carga cancion por test
     scor = 0
-    song = load_sound("test")
+    song = load_sound(musica)
     #-----------------------------------------------------------------------------
     #carga img de guitarra ( fondo donde van las notas) y luego le da un tamaño
     Guitarra = pygame.image.load("Img/Gameplay/Guitarra.png")
