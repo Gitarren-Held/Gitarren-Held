@@ -41,13 +41,14 @@ class Botonera(pygame.sprite.Sprite):
                 screen.blit(self.image,(self.x,self.y))
                 sprite[i].kill()
                 sprite[i].remove()
-                return (True,sprite,PuntajeMedidor)
+                return (True,sprite,PuntajeMedidor,cadenaNotas)
             else:
                 if((sprite[i].y>439)and(sprite[i].y<471)):
                     coll = True
+                    cadenaNotas =0
         if(coll):
             PuntajeMedidor = PuntajeMedidor-4
-        return (False,sprite,PuntajeMedidor)
+        return (False,sprite,PuntajeMedidor,cadenaNotas)
         
     #determina el estado del 'boton' dependiendo del input del usuario
     #1 = activo, num = arreglo[posicion](0,0,0,0,0,0)
