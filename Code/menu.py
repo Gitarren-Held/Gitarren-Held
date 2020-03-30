@@ -96,7 +96,7 @@ def play_function(difficulty, font, test=False):
         f = font.render('Playing as a kid (medium)', 1, COLOR_WHITE)
         cancion = "Code/test-song2"
         musica = "TheManWhoSoldTheWorld"
-        notasMusica = 600
+        notasMusica = 1000
         Gameplay(cancion,musica,notasMusica)
     elif difficulty == 'HARD':
         f = font.render('Playing as a champion (hard)', 1, COLOR_WHITE)
@@ -350,6 +350,7 @@ def Gameplay(cancion,musica,notasMusica):
     #-----------------------------------------------------------------------------
     #comienza el loop y por lo tanto la cancion se ejecuta
     song.play()
+    cont =0
     while (game):    
         #input arduino (error de lag),(cambiar tiempo de lectura)
         #inp = Leer(direccion)in   s
