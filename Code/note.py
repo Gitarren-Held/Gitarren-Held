@@ -140,7 +140,7 @@ def movimientolista(listaNotas,screen,botonera,StarPower,Cantidad_notas,Dibuj,ca
             if((StarPower)or(listaNotas[i].bonus == 0)):
                 listaNotas[i].StarPower()
                 if(StarPower):
-                    cantStarPower = cantStarPower - 0.01
+                    cantStarPower = cantStarPower -0.05
             else:
                 listaNotas[i].image = load_image("Img/Notas/"+listaNotas[i].tipo+".png", True)
                 listaNotas[i].image = pygame.transform.scale(listaNotas[i].image,(listaNotas[i].TamX,listaNotas[i].TamY))
