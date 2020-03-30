@@ -358,7 +358,6 @@ def Gameplay(cancion,musica):
         for eventos in pygame.event.get():
             if(Dibuj):
                 if eventos.type == pygame.KEYDOWN:
-
                     if eventos.key == pygame.K_z:
                         for i in range(0,len(MatrizLNotas)):
                             (coll,MatrizLNotas[i],PuntajeMedidor) = botonera[0].Active_collider(MatrizLNotas[i],scor,surface,PuntajeMedidor, cadenaNotas)
@@ -611,8 +610,26 @@ def Gameplay(cancion,musica):
                 surface.blit(texto3, (110,340))
                 surface.blit(texto4,(110,420))
                 break
-        #pygame.draw.line(surface, color, start_pos2, end_pos2, width)
         
+        if((Cantidad_notas >=70)):
+                song.stop();
+                Dibuj = False;
+                fondo = pygame.image.load("Img/Gameplay/fin.png")
+                fondo=pygame.transform.scale(fondo,(1280,720))
+                surface.blit(fondo,(0,0))
+                #calculos
+                por = "{0:.4f}".format((scor * 100)/cantidadNotasTotales)
+                texto = "Completado :"+str(por)+"%"
+                aciertos = "Aciertos :"+str(scor)
+                salir = "Aprete 'esc' para volver!"
+                fuente = pygame.font.Font(None, 60)
+                texto1 = fuente.render(texto, 0, (88, 164, 176))
+                texto2 = fuente.render(aciertos,  0, (88, 164, 176))
+                texto3 = fuente.render(salir,  0, (88, 164, 176))
+                surface.blit(texto1, (110,120))
+                surface.blit(texto2, (110,220))
+                surface.blit(texto3, (110,320))
+                break
         pygame.draw.rect(surface,(0, 255, 255), ((10, 50), (130, 20)), 3)
         pygame.draw.rect(surface,(0, 255, 255), pygame.Rect((10, 50, cantStarPower, 20)), 0)
         pygame.display.flip()
