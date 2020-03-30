@@ -13,7 +13,7 @@ class Score(pygame.sprite.Sprite):
         self.score += score
         fuente = pygame.font.Font(None, 30)
         notas = str(cantidadNotas)
-        notseguidas = fuente.render(notas, 0, (255,0,0))
+        notseguidas = fuente.render(notas, 0, (0,255,255))
         
         if(multiplicador>1):
             texto = str(score)
@@ -26,14 +26,25 @@ class Score(pygame.sprite.Sprite):
             surface.blit(texto1, (35, 125))
             surface.blit(texto2, (75, 125))
             surface.blit(texto3, (90, 125))
-            surface.blit(notseguidas,(45,300))
+          
+
             
         else:
             texto = str(score)
             texto1 = fuente.render(texto, 0, (255, 255, 255))
             surface.blit(self.image,(self.x,self.y))
             surface.blit(texto1, (45, 125))
-            surface.blit(notseguidas,(45,300))
             
-        
+
+            
+        if(cantidadNotas>0):
+            notas = 'Notas Perfectas Seguidas'
+            texto4 = fuente.render(notas,0,(0, 255, 255))
+            surface.blit(texto4,(200,10))
+            surface.blit(notseguidas,(200,40))
+        else:
+            notas = ' '
+            texto4 = fuente.render(notas,0,(0, 255, 255))
+            surface.blit(texto4,(45,290))
+            surface.blit(notseguidas,(45,600))
         #falta agregar metodo que dibuje y sume puntaje
