@@ -358,10 +358,8 @@ def Gameplay(cancion):
 
                     if eventos.key == pygame.K_z:
                         for i in range(0,len(MatrizLNotas)):
-                            (coll,MatrizLNotas[i],PuntajeMedidor) = botonera[0].Active_collider(MatrizLNotas[i],scor,surface,PuntajeMedidor)
+                            (coll,MatrizLNotas[i],PuntajeMedidor) = botonera[0].Active_collider(MatrizLNotas[i],scor,surface,PuntajeMedidor, cadenaNotas)
                             if(coll):
-                             
-                                cadenaNotas=cadenaNotas+1
                                 if(cadenaNotas<20):
                                     if(StarPower):
                                         multiplicador = 4
@@ -392,15 +390,14 @@ def Gameplay(cancion):
                                     scor = scor+(1 * multiplicador)
                                 else:
                                     scor = scor+1
-                            else:
-                                cadenaNotas = 0
+                         
+                            
                         lista[0]=1
                     if eventos.key == pygame.K_x:
                         for i in range(0,len(MatrizLNotas)):
-                            (coll,MatrizLNotas[i],PuntajeMedidor) = botonera[1].Active_collider(MatrizLNotas[i],scor,surface,PuntajeMedidor)
+                            (coll,MatrizLNotas[i],PuntajeMedidor) = botonera[1].Active_collider(MatrizLNotas[i],scor,surface,PuntajeMedidor, cadenaNotas)
                             if(coll):
                                 
-                                cadenaNotas=cadenaNotas+1
                                 if(cadenaNotas<20):
                                     if(StarPower):
                                         multiplicador = 4
@@ -431,12 +428,11 @@ def Gameplay(cancion):
                                 else:
                                     PuntajeMedidor = PuntajeMedidor-1
                                     scor = scor+1
-                            else:
-                                cadenaNotas = 0
+                            
                             lista[1]=1
                     if eventos.key == pygame.K_c:
                         for i in range(0,len(MatrizLNotas)):
-                            (coll,MatrizLNotas[i],PuntajeMedidor) = botonera[2].Active_collider(MatrizLNotas[i],scor,surface,PuntajeMedidor)
+                            (coll,MatrizLNotas[i],PuntajeMedidor) = botonera[2].Active_collider(MatrizLNotas[i],scor,surface,PuntajeMedidor, cadenaNotas)
                             if(coll):
                                 
                                 cadenaNotas=cadenaNotas+1
@@ -469,13 +465,11 @@ def Gameplay(cancion):
                                     scor = scor+(1 * multiplicador)
                                 else:
                                     scor = scor+1
-                            else:
-                                
-                                cadenaNotas = 0
+                            
                         lista[2]=1
                     if eventos.key == pygame.K_v:
                         for i in range(0,len(MatrizLNotas)):
-                            (coll,MatrizLNotas[i],PuntajeMedidor) = botonera[3].Active_collider(MatrizLNotas[i],scor,surface,PuntajeMedidor)
+                            (coll,MatrizLNotas[i],PuntajeMedidor) = botonera[3].Active_collider(MatrizLNotas[i],scor,surface,PuntajeMedidor, cadenaNotas)
                             if(coll):
                                 if(cadenaNotas<20):
                                     if(StarPower):
@@ -505,16 +499,12 @@ def Gameplay(cancion):
                                     scor = scor+(1 * multiplicador)
                                 else:
                                     scor = scor+1
-                            else:
-                                
-                                cadenaNotas = 0
+                           
                         lista[3]=1
                     if eventos.key == pygame.K_b:
                         for i in range(0,len(MatrizLNotas)):
-                            (coll,MatrizLNotas[i],PuntajeMedidor) = botonera[4].Active_collider(MatrizLNotas[i],scor,surface,PuntajeMedidor)
-                            if(coll):
-                                
-                                cadenaNotas=cadenaNotas+1
+                            (coll,MatrizLNotas[i],PuntajeMedidor) = botonera[4].Active_collider(MatrizLNotas[i],scor,surface,PuntajeMedidor, cadenaNotas)
+                            if(coll):    
                                 if(cadenaNotas<20):
                                     if(StarPower):
                                         multiplicador = 4
@@ -544,9 +534,7 @@ def Gameplay(cancion):
                                     scor = scor+(1 * multiplicador)
                                 else:
                                     scor = scor+1
-                            else:
-                               
-                                cadenaNotas = 0
+                            
                         lista[4]=1
                     if eventos.key == pygame.K_q:
                         if(cantStarPower>0):
@@ -622,8 +610,8 @@ def Gameplay(cancion):
                 break
         #pygame.draw.line(surface, color, start_pos2, end_pos2, width)
         
-        pygame.draw.rect(surface, shape_color, ((10, 50), (130, 20)), 3)
-        pygame.draw.rect(surface, shape_color, pygame.Rect((10, 50, cantStarPower, 20)), 0)
+        pygame.draw.rect(surface,(0, 255, 255), ((10, 50), (130, 20)), 3)
+        pygame.draw.rect(surface,(0, 255, 255), pygame.Rect((10, 50, cantStarPower, 20)), 0)
         pygame.display.flip()
         pygame.display.update()
 

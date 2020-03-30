@@ -29,11 +29,12 @@ class Botonera(pygame.sprite.Sprite):
         surface.blit(self.image,(self.x,self.y))
     def is_collided_with(self, sprite):
         return self.rect.colliderect(sprite.rect)
-    def Active_collider(self,sprite,score,screen,PuntajeMedidor):
-        print(PuntajeMedidor)
+    def Active_collider(self,sprite,score,screen,PuntajeMedidor, cadenaNotas):
+       
         coll = False
         for i in range(0,len(sprite)):
             if((self.is_collided_with(sprite[i]))and(self.tipo==sprite[i].tipo)and(sprite[i].y>439)and(sprite[i].y<471)): 
+                cadenaNotas=cadenaNotas+1
                 PuntajeMedidor = PuntajeMedidor+4
                 sprite[i].end=True
                 self.image = pygame.transform.scale(load_image("Img/Botonera/"+self.tipo+"OnFire.png", True),(100,56))
